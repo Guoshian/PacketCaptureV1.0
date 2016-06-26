@@ -1073,8 +1073,8 @@ void check_udp_sockets(const struct arguments *args, fd_set *rfds, fd_set *wfds,
                                     bytes, dest, ntohs(cur->dest));
 
                         // Process DNS response
-                        if (ntohs(cur->dest) == 53)
-                            parse_dns_response(args, buffer, (size_t) bytes);
+                        //if (ntohs(cur->dest) == 53)
+                         //   parse_dns_response(args, buffer, (size_t) bytes);
 
                         // Forward to tun
                         if (write_udp(args, cur, buffer, (size_t) bytes) < 0)
@@ -1546,9 +1546,12 @@ void handle_ip(const struct arguments *args, const uint8_t *pkt, const size_t le
     inet_ntop(version == 4 ? AF_INET : AF_INET6, daddr, dest, sizeof(dest));
 
     // Get ports & flags
-    int syn = 0;
     uint16_t sport = 0;
     uint16_t dport = 0;
+
+    int syn = 0;
+    /*
+
     if (protocol == IPPROTO_ICMP || protocol == IPPROTO_ICMPV6) {
         if (length - (payload - pkt) < sizeof(struct icmp)) {
             log_android(ANDROID_LOG_WARN, "ICMP packet too short");
@@ -1557,11 +1560,11 @@ void handle_ip(const struct arguments *args, const uint8_t *pkt, const size_t le
 
         struct icmp *icmp = (struct icmp *) payload;
 
-        // http://lwn.net/Articles/443051/
+
         sport = ntohs(icmp->icmp_id);
         dport = ntohs(icmp->icmp_id);
 
-    } else if (protocol == IPPROTO_UDP) {
+    } else*/ if (protocol == IPPROTO_UDP) {
         if (length - (payload - pkt) < sizeof(struct udphdr)) {
             log_android(ANDROID_LOG_WARN, "UDP packet too short");
             return;
