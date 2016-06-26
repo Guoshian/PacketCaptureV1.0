@@ -1444,9 +1444,9 @@ int is_lower_layer(int protocol) {
 
 int is_upper_layer(int protocol) {
     return (protocol == IPPROTO_TCP ||
-            protocol == IPPROTO_UDP ||
-            protocol == IPPROTO_ICMP ||
-            protocol == IPPROTO_ICMPV6);
+            protocol == IPPROTO_UDP  /*||
+           protocol == IPPROTO_ICMP ||
+            protocol == IPPROTO_ICMPV6*/);
 }
 
 void handle_ip(const struct arguments *args, const uint8_t *pkt, const size_t length) {
@@ -1850,7 +1850,7 @@ jboolean handle_udp(const struct arguments *args,
         cur = u;
     }
 
-    // Check for DNS
+    // Check for DNS..........................
     if (ntohs(udphdr->dest) == 53) {
         char qname[DNS_QNAME_MAX + 1];
         uint16_t qtype;
@@ -1878,10 +1878,10 @@ jboolean handle_udp(const struct arguments *args,
     }
 
     // Check for DHCP (tethering)
-   /* if (ntohs(udphdr->source) == 68 || ntohs(udphdr->dest) == 67) {
+    if (ntohs(udphdr->source) == 68 || ntohs(udphdr->dest) == 67) {
         if (check_dhcp(args, cur, data, datalen) >= 0)
             return 1;
-    }*/
+    }
 
     log_android(ANDROID_LOG_INFO, "UDP forward from tun %s/%u to %s/%u data %d",
                 source, ntohs(udphdr->source), dest, ntohs(udphdr->dest), datalen);
