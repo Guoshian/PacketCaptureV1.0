@@ -59,7 +59,7 @@ static pthread_mutex_t lock;
 static jboolean stopping = 0;
 static jboolean signaled = 0;
 
-static struct icmp_session *icmp_session = NULL;
+//static struct icmp_session *icmp_session = NULL;
 static struct udp_session *udp_session = NULL;
 static struct tcp_session *tcp_session = NULL;
 
@@ -197,12 +197,12 @@ Java_eu_faircode_netguard_SinkholeService_jni_1get_1session_1count(JNIEnv *env, 
     jcount[1] = 0;
     jcount[2] = 0;
 
-    struct icmp_session *i = icmp_session;
+   /* struct icmp_session *i = icmp_session;
     while (i != NULL) {
         if (i->socket >= 0)
             jcount[0]++;
         i = i->next;
-    }
+    }*/
 
     struct udp_session *u = udp_session;
     while (u != NULL) {
@@ -1020,91 +1020,7 @@ int check_tun(const struct arguments *args, fd_set *rfds, fd_set *wfds, fd_set *
 }
 
 void check_icmp_sockets(const struct arguments *args, fd_set *rfds, fd_set *wfds, fd_set *efds) {
-    struct icmp_session *cur = icmp_session;
-    while (cur != NULL) {
-        if (cur->socket >= 0) {
-            // Check socket error
-            if (FD_ISSET(cur->socket, efds)) {
-                cur->time = time(NULL);
 
-                int serr = 0;
-                socklen_t optlen = sizeof(int);
-                int err = getsockopt(cur->socket, SOL_SOCKET, SO_ERROR, &serr, &optlen);
-                if (err < 0)
-                    log_android(ANDROID_LOG_ERROR, "ICMP getsockopt error %d: %s",
-                                errno, strerror(errno));
-                else if (serr)
-                    log_android(ANDROID_LOG_ERROR, "ICMP SO_ERROR %d: %s",
-                                serr, strerror(serr));
-
-                cur->stop = 1;
-            }
-            else {
-                // Check socket read
-                if (FD_ISSET(cur->socket, rfds)) {
-                    cur->time = time(NULL);
-
-                    uint16_t blen = (uint16_t) (cur->version == 4 ? ICMP4_MAXMSG : ICMP6_MAXMSG);
-                    uint8_t *buffer = malloc(blen);
-                    ssize_t bytes = recv(cur->socket, buffer, blen, 0);
-                    if (bytes < 0) {
-                        // Socket error
-                        log_android(ANDROID_LOG_WARN, "ICMP recv error %d: %s",
-                                    errno, strerror(errno));
-
-                        if (errno != EINTR && errno != EAGAIN)
-                            cur->stop = 1;
-                    }
-                    else if (bytes == 0) {
-                        log_android(ANDROID_LOG_WARN, "ICMP recv eof");
-                        cur->stop = 1;
-
-                    } else {
-                        // Socket read data
-                        char dest[INET6_ADDRSTRLEN + 1];
-                        if (cur->version == 4)
-                            inet_ntop(AF_INET, &cur->daddr.ip4, dest, sizeof(dest));
-                        else
-                            inet_ntop(AF_INET6, &cur->daddr.ip6, dest, sizeof(dest));
-
-                        // cur->id should be equal to icmp->icmp_id
-                        // but for some unexplained reason this is not the case
-                        // some bits seems to be set extra
-                        struct icmp *icmp = (struct icmp *) buffer;
-                        log_android(
-                                cur->id == icmp->icmp_id ? ANDROID_LOG_INFO : ANDROID_LOG_WARN,
-                                "ICMP recv bytes %d from %s for tun type %d code %d id %x/%x seq %d",
-                                bytes, dest,
-                                icmp->icmp_type, icmp->icmp_code,
-                                cur->id, icmp->icmp_id, icmp->icmp_seq);
-
-                        // restore original ID
-                        icmp->icmp_id = cur->id;
-                        uint16_t csum = 0;
-                        if (cur->version == 6) {
-                            // Untested
-                            struct ip6_hdr_pseudo pseudo;
-                            memset(&pseudo, 0, sizeof(struct ip6_hdr_pseudo));
-                            memcpy(&pseudo.ip6ph_src, &cur->daddr.ip6, 16);
-                            memcpy(&pseudo.ip6ph_dst, &cur->saddr.ip6, 16);
-                            pseudo.ip6ph_len = bytes - sizeof(struct ip6_hdr);
-                            pseudo.ip6ph_nxt = IPPROTO_ICMPV6;
-                            csum = calc_checksum(
-                                    0, (uint8_t *) &pseudo, sizeof(struct ip6_hdr_pseudo));
-                        }
-                        icmp->icmp_cksum = 0;
-                        icmp->icmp_cksum = ~calc_checksum(csum, buffer, (size_t) bytes);
-
-                        // Forward to tun
-                        if (write_icmp(args, cur, buffer, (size_t) bytes) < 0)
-                            cur->stop = 1;
-                    }
-                    free(buffer);
-                }
-            }
-        }
-        cur = cur->next;
-    }
 }
 
 void check_udp_sockets(const struct arguments *args, fd_set *rfds, fd_set *wfds, fd_set *efds) {
@@ -1752,9 +1668,9 @@ void handle_ip(const struct arguments *args, const uint8_t *pkt, const size_t le
 
     // Handle allowed traffic
     if (allowed) {
-        if (protocol == IPPROTO_ICMP || protocol == IPPROTO_ICMPV6)
-            handle_icmp(args, pkt, length, payload/*, uid*/);
-        else if (protocol == IPPROTO_UDP)
+        //if (protocol == IPPROTO_ICMP || protocol == IPPROTO_ICMPV6)
+         //   handle_icmp(args, pkt, length, payload/*, uid*/);
+        /*else*/ if (protocol == IPPROTO_UDP)
             handle_udp(args, pkt, length, payload, /*uid, */redirect);
         else if (protocol == IPPROTO_TCP)
             handle_tcp(args, pkt, length, payload, /*uid, */redirect);
@@ -1780,124 +1696,7 @@ jboolean handle_icmp(const struct arguments *args,
                      const uint8_t *payload/*,
                      int uid*/) {
     // Get headers
-    const uint8_t version = (*pkt) >> 4;
-    const struct iphdr *ip4 = (struct iphdr *) pkt;
-    const struct ip6_hdr *ip6 = (struct ip6_hdr *) pkt;
-    struct icmp *icmp = (struct icmp *) payload;
-    size_t icmplen = length - (payload - pkt);
 
-    if (icmp->icmp_type != ICMP_ECHO) {
-        log_android(ANDROID_LOG_WARN, "ICMP type %d code %d not supported",
-                    icmp->icmp_type, icmp->icmp_code);
-        return 0;
-    }
-
-    // Search session
-    struct icmp_session *cur = icmp_session;
-    while (cur != NULL &&
-           !(!cur->stop && cur->version == version &&
-             (version == 4 ? cur->saddr.ip4 == ip4->saddr &&
-                             cur->daddr.ip4 == ip4->daddr
-                           : memcmp(&cur->saddr.ip6, &ip6->ip6_src, 16) == 0 &&
-                             memcmp(&cur->daddr.ip6, &ip6->ip6_dst, 16) == 0)))
-        cur = cur->next;
-
-    char source[INET6_ADDRSTRLEN + 1];
-    char dest[INET6_ADDRSTRLEN + 1];
-    if (version == 4) {
-        inet_ntop(AF_INET, &ip4->saddr, source, sizeof(source));
-        inet_ntop(AF_INET, &ip4->daddr, dest, sizeof(dest));
-    } else {
-        inet_ntop(AF_INET6, &ip6->ip6_src, source, sizeof(source));
-        inet_ntop(AF_INET6, &ip6->ip6_dst, dest, sizeof(dest));
-    }
-
-    // Create new session if needed
-    if (cur == NULL) {
-        log_android(ANDROID_LOG_INFO, "ICMP new session from %s to %s", source, dest);
-
-        // Register session
-        struct icmp_session *i = malloc(sizeof(struct icmp_session));
-        i->time = time(NULL);
-        //i->uid = uid;
-        i->version = version;
-
-        if (version == 4) {
-            i->saddr.ip4 = (__be32) ip4->saddr;
-            i->daddr.ip4 = (__be32) ip4->daddr;
-        } else {
-            memcpy(&i->saddr.ip6, &ip6->ip6_src, 16);
-            memcpy(&i->daddr.ip6, &ip6->ip6_dst, 16);
-        }
-
-        i->id = icmp->icmp_id; // store original ID
-
-        i->stop = 0;
-        i->next = NULL;
-
-        // Open UDP socket
-        i->socket = open_icmp_socket(args, i);
-        if (i->socket < 0) {
-            free(i);
-            return 0;
-        }
-
-        log_android(ANDROID_LOG_DEBUG, "ICMP socket %d id %x", i->socket, i->id);
-
-        i->next = icmp_session;
-        icmp_session = i;
-
-        cur = i;
-    }
-
-    // Modify ID
-    // http://lwn.net/Articles/443051/
-    icmp->icmp_id = ~icmp->icmp_id;
-    uint16_t csum = 0;
-    if (version == 6) {
-        // Untested
-        struct ip6_hdr_pseudo pseudo;
-        memset(&pseudo, 0, sizeof(struct ip6_hdr_pseudo));
-        memcpy(&pseudo.ip6ph_src, &ip6->ip6_dst, 16);
-        memcpy(&pseudo.ip6ph_dst, &ip6->ip6_src, 16);
-        pseudo.ip6ph_len = ip6->ip6_ctlun.ip6_un1.ip6_un1_plen;
-        pseudo.ip6ph_nxt = ip6->ip6_ctlun.ip6_un1.ip6_un1_nxt;
-        csum = calc_checksum(0, (uint8_t *) &pseudo, sizeof(struct ip6_hdr_pseudo));
-    }
-    icmp->icmp_cksum = 0;
-    icmp->icmp_cksum = ~calc_checksum(csum, (uint8_t *) icmp, icmplen);
-
-    log_android(ANDROID_LOG_INFO,
-                "ICMP forward from tun %s to %s type %d code %d id %x seq %d data %d",
-                source, dest,
-                icmp->icmp_type, icmp->icmp_code, icmp->icmp_id, icmp->icmp_seq, icmplen);
-
-    cur->time = time(NULL);
-
-    struct sockaddr_in server4;
-    struct sockaddr_in6 server6;
-    if (version == 4) {
-        server4.sin_family = AF_INET;
-        server4.sin_addr.s_addr = (__be32) ip4->daddr;
-        server4.sin_port = 0;
-    } else {
-        server6.sin6_family = AF_INET6;
-        memcpy(&server6.sin6_addr, &ip6->ip6_dst, 16);
-        server6.sin6_port = 0;
-    }
-
-    // Send raw ICMP message
-    if (sendto(cur->socket, icmp, (socklen_t) icmplen, MSG_NOSIGNAL,
-               (const struct sockaddr *) (version == 4 ? &server4 : &server6),
-               (socklen_t) (version == 4 ? sizeof(server4) : sizeof(server6))) != icmplen) {
-        log_android(ANDROID_LOG_ERROR, "ICMP sendto error %d: %s", errno, strerror(errno));
-        if (errno != EINTR && errno != EAGAIN) {
-            cur->stop = 1;
-            return 0;
-        }
-    }
-
-    return 1;
 }
 
 int has_udp_session(const struct arguments *args, const uint8_t *pkt, const uint8_t *payload) {
@@ -3212,11 +3011,11 @@ jint get_uid(const int protocol, const int version,
 
     // Get proc file name
     char *fn = NULL;
-    if (protocol == IPPROTO_ICMP && version == 4)
+    /*if (protocol == IPPROTO_ICMP && version == 4)
         fn = "/proc/net/icmp";
     else if (protocol == IPPROTO_ICMPV6 && version == 6)
         fn = "/proc/net/icmp6";
-    else if (protocol == IPPROTO_TCP)
+    else*/ if (protocol == IPPROTO_TCP)
         fn = (version == 4 ? "/proc/net/tcp" : "/proc/net/tcp6");
     else if (protocol == IPPROTO_UDP)
         fn = (version == 4 ? "/proc/net/udp" : "/proc/net/udp6");
