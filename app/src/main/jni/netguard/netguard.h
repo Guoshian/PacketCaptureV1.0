@@ -264,9 +264,9 @@ void report_exit(const struct arguments *args, const char *fmt, ...);
 
 void check_allowed(const struct arguments *args);
 
-void check_sessions(const struct arguments *args, int isessions, int usessions, int tsessions);
+void check_sessions(const struct arguments *args, /*int isessions,*/ int usessions, int tsessions);
 
-int get_select_timeout(int isessions, int usessions, int tsessions);
+int get_select_timeout(/*int isessions,*/ int usessions, int tsessions);
 
 int get_udp_timeout(const struct udp_session *u, int sessions);
 
@@ -294,20 +294,20 @@ void handle_ip(const struct arguments *args, const uint8_t *buffer, size_t lengt
 
 jboolean handle_icmp(const struct arguments *args,
                      const uint8_t *pkt, size_t length,
-                     const uint8_t *payload,
-                     int uid);
+                     const uint8_t *payload/*,
+                     int uid*/);
 
 int has_udp_session(const struct arguments *args, const uint8_t *pkt, const uint8_t *payload);
 
 void block_udp(const struct arguments *args,
                const uint8_t *pkt, size_t length,
-               const uint8_t *payload,
-               int uid);
+               const uint8_t *payload/*,
+               int uid*/);
 
 jboolean handle_udp(const struct arguments *args,
                     const uint8_t *pkt, size_t length,
                     const uint8_t *payload,
-                    int uid, struct allowed *redirect);
+                    /*int uid,*/ struct allowed *redirect);
 
 int get_dns_query(const struct arguments *args, const struct udp_session *u,
                   const uint8_t *data, const size_t datalen,
@@ -323,7 +323,7 @@ int check_dhcp(const struct arguments *args, const struct udp_session *u,
 jboolean handle_tcp(const struct arguments *args,
                     const uint8_t *pkt, size_t length,
                     const uint8_t *payload,
-                    int uid, struct allowed *redirect);
+                    /*int uid, */struct allowed *redirect);
 
 void forward_tcp(const struct arguments *args,
                  const struct tcphdr *tcphdr,
@@ -407,7 +407,7 @@ jobject create_packet(const struct arguments *args,
                       const char *dest,
                       jint dport,
                       const char *data,
-                      jint uid,
+                      /*jint uid,*/
                       jboolean allowed);
 
 void write_pcap_hdr();

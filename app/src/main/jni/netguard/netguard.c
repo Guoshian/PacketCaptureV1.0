@@ -111,7 +111,7 @@ void JNI_OnUnload(JavaVM *vm, void *reserved) {
 
 JNIEXPORT void JNICALL
 Java_eu_faircode_netguard_SinkholeService_jni_1init(JNIEnv *env) {
-    icmp_session = NULL;
+    //icmp_session = NULL;
     udp_session = NULL;
     tcp_session = NULL;
     loglevel = ANDROID_LOG_WARN;
@@ -302,7 +302,7 @@ Java_eu_faircode_netguard_Util_jni_1getprop(JNIEnv *env, jclass type, jstring na
 // Private functions
 
 void clear_sessions() {
-    struct icmp_session *i = icmp_session;
+    /*struct icmp_session *i = icmp_session;
     while (i != NULL) {
         if (i->socket >= 0 && close(i->socket))
             log_android(ANDROID_LOG_ERROR, "ICMP close %d error %d: %s",
@@ -311,7 +311,7 @@ void clear_sessions() {
         i = i->next;
         free(p);
     }
-    icmp_session = NULL;
+    icmp_session = NULL;*/
 
     struct udp_session *u = udp_session;
     while (u != NULL) {
@@ -399,13 +399,13 @@ void *handle_events(void *a) {
         log_android(ANDROID_LOG_DEBUG, "Loop thread %x", thread_id);
 
         // Count sessions
-        int isessions = 0;
+       /* int isessions = 0;
         struct icmp_session *i = icmp_session;
         while (i != NULL) {
             if (!i->stop)
                 isessions++;
             i = i->next;
-        }
+        }*/
         int usessions = 0;
         struct udp_session *u = udp_session;
         while (u != NULL) {
@@ -422,14 +422,14 @@ void *handle_events(void *a) {
         }
 
         // Check sessions
-        check_sessions(args, isessions, usessions, tsessions);
+        check_sessions(args, /*isessions,*/ usessions, tsessions);
         // https://bugzilla.mozilla.org/show_bug.cgi?id=1093893
         int idle = (tsessions + usessions + tsessions == 0 && sdk >= 16);
-        log_android(ANDROID_LOG_DEBUG, "sessions ICMP %d UDP %d TCP %d idle %d sdk %d",
-                    isessions, usessions, tsessions, idle, sdk);
+        log_android(ANDROID_LOG_DEBUG, "sessions ICMP %d UDP %d TCP %d idle %d sdk %d"/*,
+                    isessions*/, usessions, tsessions, idle, sdk);
 
         // Next event time
-        ts.tv_sec = (sdk < 16 ? 5 : get_select_timeout(isessions, usessions, tsessions));
+        ts.tv_sec = (sdk < 16 ? 5 : get_select_timeout(/*isessions,*/ usessions, tsessions));
         ts.tv_nsec = 0;
         sigemptyset(&emptyset);
 
@@ -500,7 +500,7 @@ void *handle_events(void *a) {
 #endif
 
                 // Check ICMP downstream
-                check_icmp_sockets(args, &rfds, &wfds, &efds);
+                //check_icmp_sockets(args, &rfds, &wfds, &efds);
 
                 // Check UDP downstream
                 check_udp_sockets(args, &rfds, &wfds, &efds);
@@ -566,7 +566,7 @@ void check_allowed(const struct arguments *args) {
     char source[INET6_ADDRSTRLEN + 1];
     char dest[INET6_ADDRSTRLEN + 1];
 
-    struct icmp_session *i = icmp_session;
+    /*struct icmp_session *i = icmp_session;
     while (i != NULL) {
         if (!i->stop) {
             if (i->version == 4) {
@@ -587,7 +587,7 @@ void check_allowed(const struct arguments *args) {
             }
         }
         i = i->next;
-    }
+    }*/
 
     struct udp_session *l = NULL;
     struct udp_session *u = udp_session;
@@ -604,7 +604,7 @@ void check_allowed(const struct arguments *args) {
 
             jobject objPacket = create_packet(
                     args, u->version, IPPROTO_UDP, "",
-                    source, ntohs(u->source), dest, ntohs(u->dest), "", u->uid, 0);
+                    source, ntohs(u->source), dest, ntohs(u->dest), "", /*u->uid,*/ 0);
             if (is_address_allowed(args, objPacket) == NULL) {
                 u->state = UDP_FINISHING;
                 log_android(ANDROID_LOG_WARN, "UDP terminate session socket %d uid %d",
@@ -642,7 +642,7 @@ void check_allowed(const struct arguments *args) {
 
             jobject objPacket = create_packet(
                     args, t->version, IPPROTO_TCP, "",
-                    source, ntohs(t->source), dest, ntohs(t->dest), "", t->uid, 0);
+                    source, ntohs(t->source), dest, ntohs(t->dest), "",/* t->uid,*/ 0);
             if (is_address_allowed(args, objPacket) == NULL) {
                 write_rst(args, t);
                 log_android(ANDROID_LOG_WARN, "TCP terminate socket %d uid %d",
@@ -653,11 +653,11 @@ void check_allowed(const struct arguments *args) {
     }
 }
 
-void check_sessions(const struct arguments *args, int isessions, int usessions, int tsessions) {
+void check_sessions(const struct arguments *args, /*int isessions,*/ int usessions, int tsessions) {
     time_t now = time(NULL);
 
     // Check ICMP sessions
-    struct icmp_session *il = NULL;
+    /*struct icmp_session *il = NULL;
     struct icmp_session *i = icmp_session;
     while (i != NULL) {
         int timeout = ICMP_TIMEOUT;
@@ -693,7 +693,7 @@ void check_sessions(const struct arguments *args, int isessions, int usessions, 
             il = i;
             i = i->next;
         }
-    }
+    }*/
 
     // Check UDP sessions
     struct udp_session *ul = NULL;
@@ -823,11 +823,11 @@ void check_sessions(const struct arguments *args, int isessions, int usessions, 
     }
 }
 
-int get_select_timeout(int isessions, int usessions, int tsessions) {
+int get_select_timeout(/*int isessions,*/ int usessions, int tsessions) {
     time_t now = time(NULL);
     int timeout = SELECT_TIMEOUT;
 
-    struct icmp_session *i = icmp_session;
+    /*struct icmp_session *i = icmp_session;
     while (i != NULL) {
         if (!i->stop) {
             int stimeout = i->time + ICMP_TIMEOUT - now + 1;
@@ -835,7 +835,7 @@ int get_select_timeout(int isessions, int usessions, int tsessions) {
                 timeout = stimeout;
         }
         i = i->next;
-    }
+    }*/
 
     struct udp_session *u = udp_session;
     while (u != NULL) {
@@ -900,7 +900,7 @@ int get_selects(const struct arguments *args, fd_set *rfds, fd_set *wfds, fd_set
     int max = args->tun;
 
     // Select ICMP sockets
-    struct icmp_session *i = icmp_session;
+   /* struct icmp_session *i = icmp_session;
     while (i != NULL) {
         if (!i->stop) {
             FD_SET(i->socket, efds);
@@ -909,7 +909,7 @@ int get_selects(const struct arguments *args, fd_set *rfds, fd_set *wfds, fd_set
                 max = i->socket;
         }
         i = i->next;
-    }
+    }*/
 
     // Select UDP sockets
     struct udp_session *u = udp_session;
@@ -1687,44 +1687,44 @@ void handle_ip(const struct arguments *args, const uint8_t *pkt, const size_t le
     flags[flen] = 0;
 
     // Get uid
-    jint uid = -1;
-    if (protocol == IPPROTO_ICMP || protocol == IPPROTO_ICMPV6 ||
-        (protocol == IPPROTO_UDP && !has_udp_session(args, pkt, payload)) ||
-        (protocol == IPPROTO_TCP && syn)) {
-        log_android(ANDROID_LOG_INFO, "get uid %s/%u version %d protocol %d syn %d",
-                    dest, dport, version, protocol, syn);
-        int tries = 0;
-        usleep(1000 * UID_DELAY);
-        while (uid < 0 && tries++ < UID_MAXTRY) {
+    //jint uid = -1;
+    //if (protocol == IPPROTO_ICMP || protocol == IPPROTO_ICMPV6 ||
+    //    (protocol == IPPROTO_UDP && !has_udp_session(args, pkt, payload)) ||
+     //   (protocol == IPPROTO_TCP && syn)) {
+     //   log_android(ANDROID_LOG_INFO, "get uid %s/%u version %d protocol %d syn %d",
+     //               dest, dport, version, protocol, syn);
+   //     int tries = 0;
+     //   usleep(1000 * UID_DELAY);
+        //while (uid < 0 && tries++ < UID_MAXTRY) {
             // Check IPv6 table first
-            int dump = (tries == UID_MAXTRY);
-            if (version == 4) {
+         //   int dump = (tries == UID_MAXTRY);
+           /* if (version == 4) {
                 int8_t saddr128[16];
                 memset(saddr128, 0, 10);
                 saddr128[10] = (uint8_t) 0xFF;
                 saddr128[11] = (uint8_t) 0xFF;
                 memcpy(saddr128 + 12, saddr, 4);
                 uid = get_uid(protocol, 6, saddr128, sport, dump);
-            }
+            }*/
 
-            if (uid < 0)
-                uid = get_uid(protocol, version, saddr, sport, dump);
+          /*  if (uid < 0)
+                uid = get_uid(protocol, version, saddr, sport, dump);*/
 
             // Retry delay
-            if (uid < 0 && tries < UID_MAXTRY) {
+            /*if (uid < 0 && tries < UID_MAXTRY) {
                 log_android(ANDROID_LOG_WARN, "get uid %s/%u syn %d try %d",
                             dest, dport, syn, tries);
                 usleep(1000 * UID_DELAYTRY);
-            }
-        }
+            }*/
+        //}
 
-        if (uid < 0)
-            log_android(ANDROID_LOG_ERROR, "uid not found");
-    }
+        /*if (uid < 0)
+            log_android(ANDROID_LOG_ERROR, "uid not found");*/
+    //}
 
-    log_android(ANDROID_LOG_DEBUG,
+    /*log_android(ANDROID_LOG_DEBUG,
                 "Packet v%d %s/%u > %s/%u proto %d flags %s uid %d",
-                version, source, sport, dest, dport, protocol, flags, uid);
+                version, source, sport, dest, dport, protocol, flags, uid);*/
 
 #ifdef PROFILE_EVENTS
     gettimeofday(&end, NULL);
@@ -1743,7 +1743,7 @@ void handle_ip(const struct arguments *args, const uint8_t *pkt, const size_t le
         allowed = 1; // assume existing session
     else {
         jobject objPacket = create_packet(
-                args, version, protocol, flags, source, sport, dest, dport, "", uid, 0);
+                args, version, protocol, flags, source, sport, dest, dport, "", /*uid, */0);
         redirect = is_address_allowed(args, objPacket);
         allowed = (redirect != NULL);
         if (redirect != NULL && (*redirect->raddr == 0 || redirect->rport == 0))
@@ -1753,15 +1753,15 @@ void handle_ip(const struct arguments *args, const uint8_t *pkt, const size_t le
     // Handle allowed traffic
     if (allowed) {
         if (protocol == IPPROTO_ICMP || protocol == IPPROTO_ICMPV6)
-            handle_icmp(args, pkt, length, payload, uid);
+            handle_icmp(args, pkt, length, payload/*, uid*/);
         else if (protocol == IPPROTO_UDP)
-            handle_udp(args, pkt, length, payload, uid, redirect);
+            handle_udp(args, pkt, length, payload, /*uid, */redirect);
         else if (protocol == IPPROTO_TCP)
-            handle_tcp(args, pkt, length, payload, uid, redirect);
+            handle_tcp(args, pkt, length, payload, /*uid, */redirect);
     }
     else {
         if (protocol == IPPROTO_UDP)
-            block_udp(args, pkt, length, payload, uid);
+            block_udp(args, pkt, length, payload/*, uid*/);
         log_android(ANDROID_LOG_WARN, "Address v%d p%d %s/%u syn %d not allowed",
                     version, protocol, dest, dport, syn);
     }
@@ -1777,8 +1777,8 @@ void handle_ip(const struct arguments *args, const uint8_t *pkt, const size_t le
 
 jboolean handle_icmp(const struct arguments *args,
                      const uint8_t *pkt, size_t length,
-                     const uint8_t *payload,
-                     int uid) {
+                     const uint8_t *payload/*,
+                     int uid*/) {
     // Get headers
     const uint8_t version = (*pkt) >> 4;
     const struct iphdr *ip4 = (struct iphdr *) pkt;
@@ -1819,7 +1819,7 @@ jboolean handle_icmp(const struct arguments *args,
         // Register session
         struct icmp_session *i = malloc(sizeof(struct icmp_session));
         i->time = time(NULL);
-        i->uid = uid;
+        //i->uid = uid;
         i->version = version;
 
         if (version == 4) {
@@ -1926,8 +1926,8 @@ int has_udp_session(const struct arguments *args, const uint8_t *pkt, const uint
 
 void block_udp(const struct arguments *args,
                const uint8_t *pkt, size_t length,
-               const uint8_t *payload,
-               int uid) {
+               const uint8_t *payload/*,
+               int uid*/) {
     // Get headers
     const uint8_t version = (*pkt) >> 4;
     const struct iphdr *ip4 = (struct iphdr *) pkt;
@@ -1950,7 +1950,7 @@ void block_udp(const struct arguments *args,
     // Register session
     struct udp_session *u = malloc(sizeof(struct udp_session));
     u->time = time(NULL);
-    u->uid = uid;
+    //u->uid = uid;
     u->version = version;
 
     if (version == 4) {
@@ -1973,7 +1973,7 @@ void block_udp(const struct arguments *args,
 jboolean handle_udp(const struct arguments *args,
                     const uint8_t *pkt, size_t length,
                     const uint8_t *payload,
-                    int uid, struct allowed *redirect) {
+                    /*int uid,*/ struct allowed *redirect) {
     // Get headers
     const uint8_t version = (*pkt) >> 4;
     const struct iphdr *ip4 = (struct iphdr *) pkt;
@@ -2017,7 +2017,7 @@ jboolean handle_udp(const struct arguments *args,
         // Register session
         struct udp_session *u = malloc(sizeof(struct udp_session));
         u->time = time(NULL);
-        u->uid = uid;
+        //u->uid = uid;
         u->version = version;
 
         if (version == 4) {
@@ -2065,7 +2065,7 @@ jboolean handle_udp(const struct arguments *args,
                 jobject objPacket = create_packet(
                         args, version, IPPROTO_UDP, "",
                         source, ntohs(cur->source), dest, ntohs(cur->dest),
-                        name, 0, 0);
+                        name, /*0,*/ 0);
                 log_packet(args, objPacket);
 
                 // Session done
@@ -2350,7 +2350,7 @@ int check_dhcp(const struct arguments *args, const struct udp_session *u,
 jboolean handle_tcp(const struct arguments *args,
                     const uint8_t *pkt, size_t length,
                     const uint8_t *payload,
-                    int uid, struct allowed *redirect) {
+                    /*int uid, */struct allowed *redirect) {
     // Get headers
     const uint8_t version = (*pkt) >> 4;
     const struct iphdr *ip4 = (struct iphdr *) pkt;
@@ -2402,7 +2402,7 @@ jboolean handle_tcp(const struct arguments *args,
             dest, ntohs(tcphdr->dest),
             ntohl(tcphdr->seq) - (cur == NULL ? 0 : cur->remote_start),
             tcphdr->ack ? ntohl(tcphdr->ack_seq) - (cur == NULL ? 0 : cur->local_start) : 0,
-            datalen, ntohs(tcphdr->window), uid);
+            datalen, ntohs(tcphdr->window)/*, uid*/);
     log_android(ANDROID_LOG_DEBUG, packet);
 
     // Check session
@@ -2413,7 +2413,7 @@ jboolean handle_tcp(const struct arguments *args,
             // Register session
             struct tcp_session *syn = malloc(sizeof(struct tcp_session));
             syn->time = time(NULL);
-            syn->uid = uid;
+            //syn->uid = uid;
             syn->version = version;
             syn->recv_window = TCP_RECV_WINDOW;
             syn->send_window = ntohs(tcphdr->window);
@@ -3632,7 +3632,7 @@ jobject create_packet(const struct arguments *args,
                       const char *dest,
                       jint dport,
                       const char *data,
-                      jint uid,
+                      /*jint uid,*/
                       jboolean allowed) {
     JNIEnv *env = args->env;
 
@@ -3685,7 +3685,7 @@ jobject create_packet(const struct arguments *args,
     (*env)->SetObjectField(env, jpacket, fidDaddr, jdest);
     (*env)->SetIntField(env, jpacket, fidDport, dport);
     (*env)->SetObjectField(env, jpacket, fidData, jdata);
-    (*env)->SetIntField(env, jpacket, fidUid, uid);
+    (*env)->SetIntField(env, jpacket, fidUid, 0);
     (*env)->SetBooleanField(env, jpacket, fidAllowed, allowed);
 
     (*env)->DeleteLocalRef(env, jdata);
