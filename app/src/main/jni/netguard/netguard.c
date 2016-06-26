@@ -1865,7 +1865,7 @@ jboolean handle_udp(const struct arguments *args,
                         args, version, IPPROTO_UDP, "",
                         source, ntohs(cur->source), dest, ntohs(cur->dest),
                         name, /*0,*/ 0);
-                log_packet(args, objPacket);
+                //log_packet(args, objPacket);
 
                 // Session done
                 cur->state = UDP_FINISHING;
@@ -1875,10 +1875,10 @@ jboolean handle_udp(const struct arguments *args,
     }
 
     // Check for DHCP (tethering)
-    if (ntohs(udphdr->source) == 68 || ntohs(udphdr->dest) == 67) {
+   /* if (ntohs(udphdr->source) == 68 || ntohs(udphdr->dest) == 67) {
         if (check_dhcp(args, cur, data, datalen) >= 0)
             return 1;
-    }
+    }*/
 
     log_android(ANDROID_LOG_INFO, "UDP forward from tun %s/%u to %s/%u data %d",
                 source, ntohs(udphdr->source), dest, ntohs(udphdr->dest), datalen);
@@ -2995,98 +2995,7 @@ void hex2bytes(const char *hex, uint8_t *buffer) {
 
 jint get_uid(const int protocol, const int version,
              const void *saddr, const uint16_t sport, int dump) {
-    char line[250];
-    char hex[16 * 2 + 1];
-    int fields;
-    uint8_t addr4[4];
-    uint8_t addr6[16];
-    int port;
-    jint uid = -1;
 
-#ifdef PROFILE_UID
-    float mselapsed;
-    struct timeval start, end;
-    gettimeofday(&start, NULL);
-#endif
-
-    // Get proc file name
-    char *fn = NULL;
-    /*if (protocol == IPPROTO_ICMP && version == 4)
-        fn = "/proc/net/icmp";
-    else if (protocol == IPPROTO_ICMPV6 && version == 6)
-        fn = "/proc/net/icmp6";
-    else*/ if (protocol == IPPROTO_TCP)
-        fn = (version == 4 ? "/proc/net/tcp" : "/proc/net/tcp6");
-    else if (protocol == IPPROTO_UDP)
-        fn = (version == 4 ? "/proc/net/udp" : "/proc/net/udp6");
-    else
-        return uid;
-
-    if (dump) {
-        char source[INET6_ADDRSTRLEN + 1];
-        inet_ntop(version == 4 ? AF_INET : AF_INET6, saddr, source, sizeof(source));
-        log_android(ANDROID_LOG_INFO, "Searching %s/%u in %s", source, sport, fn);
-    }
-
-    // Open proc file
-    FILE *fd = fopen(fn, "r");
-    if (fd == NULL) {
-        log_android(ANDROID_LOG_ERROR, "fopen %s error %d: %s", fn, errno, strerror(errno));
-        return uid;
-    }
-
-    // Scan proc file
-    jint u;
-    int i = 0;
-    while (fgets(line, sizeof(line), fd) != NULL) {
-        if (i++) {
-            if (version == 4)
-                fields = sscanf(
-                        line,
-                        "%*d: %8s:%X %*X:%*X %*X %*lX:%*lX %*X:%*X %*X %d %*d %*ld",
-                        hex, &port, &u);
-            else
-                fields = sscanf(
-                        line,
-                        "%*d: %32s:%X %*X:%*X %*X %*lX:%*lX %*X:%*X %*X %d %*d %*ld",
-                        hex, &port, &u);
-            if (fields == 3) {
-                hex2bytes(hex, version == 4 ? addr4 : addr6);
-                if (version == 4)
-                    ((uint32_t *) addr4)[0] = htonl(((uint32_t *) addr4)[0]);
-                for (int w = 0; w < 4; w++)
-                    ((uint32_t *) addr6)[w] = htonl(((uint32_t *) addr6)[w]);
-
-                if (dump) {
-                    char source[INET6_ADDRSTRLEN + 1];
-                    inet_ntop(version == 4 ? AF_INET : AF_INET6,
-                              version == 4 ? addr4 : addr6,
-                              source, sizeof(source));
-                    log_android(ANDROID_LOG_INFO, "%s/%u %d %s", source, port, u, line);
-                }
-
-                if (port == sport) {
-                    uid = u;
-                    if (memcmp(version == 4 ? addr4 : addr6, saddr, version == 4 ? 4 : 16) == 0)
-                        break;
-                }
-            } else
-                log_android(ANDROID_LOG_ERROR, "Invalid field #%d: %s", fields, line);
-        }
-    }
-
-    if (fclose(fd))
-        log_android(ANDROID_LOG_ERROR, "fclose %s error %d: %s", fn, errno, strerror(errno));
-
-#ifdef PROFILE_UID
-    gettimeofday(&end, NULL);
-    mselapsed = (end.tv_sec - start.tv_sec) * 1000.0 +
-                (end.tv_usec - start.tv_usec) / 1000.0;
-    if (mselapsed > PROFILE_UID)
-        log_android(ANDROID_LOG_WARN, "get uid ip %f", mselapsed);
-#endif
-
-    return uid;
 }
 
 static jmethodID midProtect = NULL;
