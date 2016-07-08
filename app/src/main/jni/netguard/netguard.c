@@ -493,6 +493,13 @@ void *handle_events(void *a) {
                 gettimeofday(&end, NULL);
                 mselapsed = (end.tv_sec - start.tv_sec) * 1000.0 +
                             (end.tv_usec - start.tv_usec) / 1000.0;
+
+
+
+                log_android(ANDROID_LOG_WARN, "check_tun time %f", mselapsed);
+
+
+
                 if (mselapsed > PROFILE_EVENTS)
                     log_android(ANDROID_LOG_WARN, "tun %f", mselapsed);
 
@@ -711,13 +718,13 @@ void check_sessions(const struct arguments *args, /*int isessions,*/ int usessio
         }
 
         // Check session timeout
-        int timeout = get_udp_timeout(u, usessions);
+        /*int timeout = get_udp_timeout(u, usessions);
         if (u->state == UDP_ACTIVE && u->time + timeout < now) {
             log_android(ANDROID_LOG_WARN, "UDP idle %d/%d sec state %d from %s/%u to %s/%u",
                         now - u->time, timeout, u->state,
                         source, ntohs(u->source), dest, ntohs(u->dest));
             u->state = UDP_FINISHING;
-        }
+        }*/
 
         // Check finished sessions
         if (u->state == UDP_FINISHING) {
