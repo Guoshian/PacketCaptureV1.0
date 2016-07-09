@@ -394,9 +394,30 @@ void *handle_events(void *a) {
     stopping = 0;
     signaled = 0;
 
+
+
+
+
+
+
+
+
+
     // Loop
     while (!stopping) {
+
+        struct timeval start1, end1;
+
+        float mselapsed1;
+
+
         log_android(ANDROID_LOG_DEBUG, "Loop thread %x", thread_id);
+
+
+
+
+
+        gettimeofday(&start1, NULL);
 
         // Count sessions
        /* int isessions = 0;
@@ -413,6 +434,21 @@ void *handle_events(void *a) {
                 usessions++;
             u = u->next;
         }
+
+
+        gettimeofday(&end1, NULL);
+        mselapsed1 = (end1.tv_sec - start1.tv_sec)  +
+                     (end1.tv_usec - start1.tv_usec)*0.000001;
+
+
+        log_android(ANDROID_LOG_WARN, "check_usessions time %f" , mselapsed1);
+
+
+        gettimeofday(&start1, NULL);
+
+
+
+
         int tsessions = 0;
         struct tcp_session *t = tcp_session;
         while (t != NULL) {
@@ -423,6 +459,22 @@ void *handle_events(void *a) {
 
         // Check sessions
         check_sessions(args, /*isessions,*/ usessions, tsessions);
+
+
+
+
+        gettimeofday(&end1, NULL);
+        mselapsed1 = (end1.tv_sec - start1.tv_sec)  +
+                     (end1.tv_usec - start1.tv_usec)*0.000001;
+
+
+        log_android(ANDROID_LOG_WARN, "check_sessions time %f" , mselapsed1);
+
+
+        gettimeofday(&start1, NULL);
+
+
+
         // https://bugzilla.mozilla.org/show_bug.cgi?id=1093893
         int idle = (tsessions + usessions + tsessions == 0 && sdk >= 16);
         log_android(ANDROID_LOG_DEBUG, "sessions ICMP %d UDP %d TCP %d idle %d sdk %d"/*,
@@ -478,26 +530,49 @@ void *handle_events(void *a) {
             if (pthread_mutex_lock(&lock))
                 log_android(ANDROID_LOG_ERROR, "pthread_mutex_lock failed");
 
+
+            gettimeofday(&end1, NULL);
+            mselapsed1 = (end1.tv_sec - start1.tv_sec)  +
+                         (end1.tv_usec - start1.tv_usec)*0.000001;
+
+
+
+
+            log_android(ANDROID_LOG_WARN, "check_selects time %f" , mselapsed1);
+
+
+
+
+            gettimeofday(&start1, NULL);
+
 #ifdef PROFILE_EVENTS
             struct timeval start, end;
             float mselapsed;
             gettimeofday(&start, NULL);
 #endif
 
+
             // Check upstream
             int error = 0;
             if (check_tun(args, &rfds, &wfds, &efds) < 0)
                 error = 1;
             else {
+
+
+            gettimeofday(&end1, NULL);
+            mselapsed1 = (end1.tv_sec - start1.tv_sec)  +
+                          (end1.tv_usec - start1.tv_usec)*0.000001;
+
+
+
+
+           log_android(ANDROID_LOG_WARN, "check_tun time %f" , mselapsed1);
+
+                gettimeofday(&start1, NULL);
 #ifdef PROFILE_EVENTS
                 gettimeofday(&end, NULL);
                 mselapsed = (end.tv_sec - start.tv_sec) * 1000.0 +
                             (end.tv_usec - start.tv_usec) / 1000.0;
-
-
-
-                log_android(ANDROID_LOG_WARN, "check_tun time %f", mselapsed);
-
 
 
                 if (mselapsed > PROFILE_EVENTS)
@@ -505,6 +580,9 @@ void *handle_events(void *a) {
 
                 gettimeofday(&start, NULL);
 #endif
+
+
+
 
                 // Check ICMP downstream
                 //check_icmp_sockets(args, &rfds, &wfds, &efds);
@@ -530,6 +608,16 @@ void *handle_events(void *a) {
                 log_android(ANDROID_LOG_WARN, "sockets %f", mselapsed);
 #endif
         }
+
+        gettimeofday(&end1, NULL);
+        mselapsed1 = (end1.tv_sec - start1.tv_sec)  +
+                     (end1.tv_usec - start1.tv_usec)*0.000001;
+
+        log_android(ANDROID_LOG_WARN, "check_udp_sockets time %f" , mselapsed1);
+
+
+
+
     }
 
     (*env)->DeleteGlobalRef(env, args->instance);
@@ -663,6 +751,15 @@ void check_allowed(const struct arguments *args) {
 void check_sessions(const struct arguments *args, /*int isessions,*/ int usessions, int tsessions) {
     time_t now = time(NULL);
 
+    struct timeval start, end, start2, end2;
+
+    float mselapsed, mselapsed2 ;
+
+   float mselapsed_inet_ntop=0 , mselapsed_timeout=0 , mselapsed_finished =0 , mselapsed_lingering = 0;
+
+
+
+
     // Check ICMP sessions
     /*struct icmp_session *il = NULL;
     struct icmp_session *i = icmp_session;
@@ -701,11 +798,15 @@ void check_sessions(const struct arguments *args, /*int isessions,*/ int usessio
             i = i->next;
         }
     }*/
+    gettimeofday(&start, NULL);
 
     // Check UDP sessions
     struct udp_session *ul = NULL;
     struct udp_session *u = udp_session;
     while (u != NULL) {
+
+        gettimeofday(&start2, NULL);
+
         char source[INET6_ADDRSTRLEN + 1];
         char dest[INET6_ADDRSTRLEN + 1];
         if (u->version == 4) {
@@ -717,15 +818,44 @@ void check_sessions(const struct arguments *args, /*int isessions,*/ int usessio
             inet_ntop(AF_INET6, &u->daddr.ip6, dest, sizeof(dest));
         }
 
+
+        gettimeofday(&end2, NULL);
+        mselapsed2= (end2.tv_sec - start2.tv_sec)  +
+                    (end2.tv_usec - start2.tv_usec)*0.000001;
+
+
+        mselapsed_inet_ntop =  mselapsed_inet_ntop + mselapsed2;
+
+        log_android(ANDROID_LOG_WARN, "check_sessions time-inet_ntop %f" , mselapsed_inet_ntop);
+
+
+        gettimeofday(&start2, NULL);
+
         // Check session timeout
-        /*int timeout = get_udp_timeout(u, usessions);
+        int timeout = get_udp_timeout(u, usessions);
         if (u->state == UDP_ACTIVE && u->time + timeout < now) {
             log_android(ANDROID_LOG_WARN, "UDP idle %d/%d sec state %d from %s/%u to %s/%u",
                         now - u->time, timeout, u->state,
                         source, ntohs(u->source), dest, ntohs(u->dest));
             u->state = UDP_FINISHING;
-        }*/
+        }
 
+
+
+        gettimeofday(&end2, NULL);
+        mselapsed2= (end2.tv_sec - start2.tv_sec)  +
+                    (end2.tv_usec - start2.tv_usec)*0.000001;
+
+        mselapsed_timeout = mselapsed_timeout + mselapsed2;
+
+        log_android(ANDROID_LOG_WARN, "check_sessions time-timeout %f" , mselapsed_timeout);
+
+
+
+
+
+
+        gettimeofday(&start2, NULL);
         // Check finished sessions
         if (u->state == UDP_FINISHING) {
             log_android(ANDROID_LOG_INFO, "UDP close from %s/%u to %s/%u socket %d",
@@ -739,6 +869,19 @@ void check_sessions(const struct arguments *args, /*int isessions,*/ int usessio
             u->time = time(NULL);
             u->state = UDP_CLOSED;
         }
+
+
+        gettimeofday(&end2, NULL);
+        mselapsed2= (end2.tv_sec - start2.tv_sec)  +
+                    (end2.tv_usec - start2.tv_usec)*0.000001;
+
+        mselapsed_finished = mselapsed_finished + mselapsed2;
+
+        log_android(ANDROID_LOG_WARN, "check_sessions time-finished %f" , mselapsed_finished);
+
+
+
+        gettimeofday(&start2, NULL);
 
         // Cleanup lingering sessions
         if ((u->state == UDP_CLOSED || u->state == UDP_BLOCKED) &&
@@ -756,7 +899,35 @@ void check_sessions(const struct arguments *args, /*int isessions,*/ int usessio
             ul = u;
             u = u->next;
         }
+
+        gettimeofday(&end2, NULL);
+        mselapsed2= (end2.tv_sec - start2.tv_sec)  +
+                    (end2.tv_usec - start2.tv_usec)*0.000001;
+
+
+        mselapsed_lingering = mselapsed_lingering + mselapsed2;
+
+        log_android(ANDROID_LOG_WARN, "check_sessions time-lingering sessions %f" , mselapsed_lingering);
+
+
+
     }
+
+
+    gettimeofday(&end, NULL);
+    mselapsed= (end.tv_sec - start.tv_sec)  +
+                  (end.tv_usec - start.tv_usec)*0.000001;
+
+    log_android(ANDROID_LOG_WARN, "check_sessions time-all %f" , mselapsed);
+
+
+
+
+
+
+
+
+
 
     // Check TCP sessions
     struct tcp_session *tl = NULL;
