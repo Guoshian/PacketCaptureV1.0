@@ -417,7 +417,7 @@ void *handle_events(void *a) {
 
 
 
-        gettimeofday(&start1, NULL);
+//        gettimeofday(&start1, NULL);
 
         // Count sessions
        /* int isessions = 0;
@@ -436,15 +436,15 @@ void *handle_events(void *a) {
         }
 
 
-        gettimeofday(&end1, NULL);
-        mselapsed1 = (end1.tv_sec - start1.tv_sec)  +
-                     (end1.tv_usec - start1.tv_usec)*0.000001;
+//        gettimeofday(&end1, NULL);
+//       mselapsed1 = (end1.tv_sec - start1.tv_sec)  +
+//                     (end1.tv_usec - start1.tv_usec)*0.000001;
 
 
-        log_android(ANDROID_LOG_WARN, "check_usessions time %f" , mselapsed1);
+//        log_android(ANDROID_LOG_WARN, "check_usessions time %f" , mselapsed1);
 
 
-        gettimeofday(&start1, NULL);
+//        gettimeofday(&start1, NULL);
 
 
 
@@ -463,15 +463,14 @@ void *handle_events(void *a) {
 
 
 
-        gettimeofday(&end1, NULL);
-        mselapsed1 = (end1.tv_sec - start1.tv_sec)  +
-                     (end1.tv_usec - start1.tv_usec)*0.000001;
+//        gettimeofday(&end1, NULL);
+//        mselapsed1 = (end1.tv_sec - start1.tv_sec)  +
+//                     (end1.tv_usec - start1.tv_usec)*0.000001;
+
+//        log_android(ANDROID_LOG_WARN, "check_sessions time %f" , mselapsed1);
 
 
-        log_android(ANDROID_LOG_WARN, "check_sessions time %f" , mselapsed1);
-
-
-        gettimeofday(&start1, NULL);
+//        gettimeofday(&start1, NULL);
 
 
 
@@ -531,19 +530,17 @@ void *handle_events(void *a) {
                 log_android(ANDROID_LOG_ERROR, "pthread_mutex_lock failed");
 
 
-            gettimeofday(&end1, NULL);
-            mselapsed1 = (end1.tv_sec - start1.tv_sec)  +
-                         (end1.tv_usec - start1.tv_usec)*0.000001;
+//            gettimeofday(&end1, NULL);
+//            mselapsed1 = (end1.tv_sec - start1.tv_sec)  +
+//                        (end1.tv_usec - start1.tv_usec)*0.000001;
+
+
+//           log_android(ANDROID_LOG_WARN, "check_selects time %f" , mselapsed1);
 
 
 
 
-            log_android(ANDROID_LOG_WARN, "check_selects time %f" , mselapsed1);
-
-
-
-
-            gettimeofday(&start1, NULL);
+//            gettimeofday(&start1, NULL);
 
 #ifdef PROFILE_EVENTS
             struct timeval start, end;
@@ -559,16 +556,14 @@ void *handle_events(void *a) {
             else {
 
 
-            gettimeofday(&end1, NULL);
-            mselapsed1 = (end1.tv_sec - start1.tv_sec)  +
-                          (end1.tv_usec - start1.tv_usec)*0.000001;
+//            gettimeofday(&end1, NULL);
+//            mselapsed1 = (end1.tv_sec - start1.tv_sec)  +
+ //                         (end1.tv_usec - start1.tv_usec)*0.000001;
 
 
+//           log_android(ANDROID_LOG_WARN, "check_tun time %f" , mselapsed1);
 
-
-           log_android(ANDROID_LOG_WARN, "check_tun time %f" , mselapsed1);
-
-                gettimeofday(&start1, NULL);
+ //               gettimeofday(&start1, NULL);
 #ifdef PROFILE_EVENTS
                 gettimeofday(&end, NULL);
                 mselapsed = (end.tv_sec - start.tv_sec) * 1000.0 +
@@ -609,11 +604,11 @@ void *handle_events(void *a) {
 #endif
         }
 
-        gettimeofday(&end1, NULL);
-        mselapsed1 = (end1.tv_sec - start1.tv_sec)  +
-                     (end1.tv_usec - start1.tv_usec)*0.000001;
+ //       gettimeofday(&end1, NULL);
+//        mselapsed1 = (end1.tv_sec - start1.tv_sec)  +
+//                     (end1.tv_usec - start1.tv_usec)*0.000001;
 
-        log_android(ANDROID_LOG_WARN, "check_udp_sockets time %f" , mselapsed1);
+ //       log_android(ANDROID_LOG_WARN, "check_udp_sockets time %f" , mselapsed1);
 
 
 
@@ -755,7 +750,7 @@ void check_sessions(const struct arguments *args, /*int isessions,*/ int usessio
 
     float mselapsed, mselapsed2 ;
 
-   float mselapsed_inet_ntop=0 , mselapsed_timeout=0 , mselapsed_finished =0 , mselapsed_lingering = 0;
+    float mselapsed_inet_ntop=0 , mselapsed_timeout=0 , mselapsed_finished =0 , mselapsed_lingering = 0;
 
 
 
@@ -805,7 +800,7 @@ void check_sessions(const struct arguments *args, /*int isessions,*/ int usessio
     struct udp_session *u = udp_session;
     while (u != NULL) {
 
-        gettimeofday(&start2, NULL);
+ //     gettimeofday(&start2, NULL);
 
         char source[INET6_ADDRSTRLEN + 1];
         char dest[INET6_ADDRSTRLEN + 1];
@@ -819,17 +814,17 @@ void check_sessions(const struct arguments *args, /*int isessions,*/ int usessio
         }
 
 
-        gettimeofday(&end2, NULL);
-        mselapsed2= (end2.tv_sec - start2.tv_sec)  +
-                    (end2.tv_usec - start2.tv_usec)*0.000001;
+//        gettimeofday(&end2, NULL);
+ //      mselapsed2= (end2.tv_sec - start2.tv_sec)  +
+ //                   (end2.tv_usec - start2.tv_usec)*0.000001;
 
 
-        mselapsed_inet_ntop =  mselapsed_inet_ntop + mselapsed2;
+ //       mselapsed_inet_ntop =  mselapsed_inet_ntop + mselapsed2;
 
-        log_android(ANDROID_LOG_WARN, "check_sessions time-inet_ntop %f" , mselapsed_inet_ntop);
+ //       log_android(ANDROID_LOG_WARN, "check_sessions time-inet_ntop %f" , mselapsed2);
 
 
-        gettimeofday(&start2, NULL);
+//        gettimeofday(&start2, NULL);
 
         // Check session timeout
         int timeout = get_udp_timeout(u, usessions);
@@ -842,20 +837,20 @@ void check_sessions(const struct arguments *args, /*int isessions,*/ int usessio
 
 
 
-        gettimeofday(&end2, NULL);
-        mselapsed2= (end2.tv_sec - start2.tv_sec)  +
-                    (end2.tv_usec - start2.tv_usec)*0.000001;
+//      gettimeofday(&end2, NULL);
+//        mselapsed2= (end2.tv_sec - start2.tv_sec)  +
+ //                   (end2.tv_usec - start2.tv_usec)*0.000001;
 
-        mselapsed_timeout = mselapsed_timeout + mselapsed2;
+//        mselapsed_timeout = mselapsed_timeout + mselapsed2;
 
-        log_android(ANDROID_LOG_WARN, "check_sessions time-timeout %f" , mselapsed_timeout);
-
-
+//       log_android(ANDROID_LOG_WARN, "check_sessions time-timeout %f" , mselapsed2);
 
 
 
 
-        gettimeofday(&start2, NULL);
+
+
+ //       gettimeofday(&start2, NULL);
         // Check finished sessions
         if (u->state == UDP_FINISHING) {
             log_android(ANDROID_LOG_INFO, "UDP close from %s/%u to %s/%u socket %d",
@@ -871,17 +866,17 @@ void check_sessions(const struct arguments *args, /*int isessions,*/ int usessio
         }
 
 
-        gettimeofday(&end2, NULL);
-        mselapsed2= (end2.tv_sec - start2.tv_sec)  +
-                    (end2.tv_usec - start2.tv_usec)*0.000001;
+ //       gettimeofday(&end2, NULL);
+  //      mselapsed2= (end2.tv_sec - start2.tv_sec)  +
+  //                  (end2.tv_usec - start2.tv_usec)*0.000001;
 
-        mselapsed_finished = mselapsed_finished + mselapsed2;
+//        mselapsed_finished = mselapsed_finished + mselapsed2;
 
-        log_android(ANDROID_LOG_WARN, "check_sessions time-finished %f" , mselapsed_finished);
+  //      log_android(ANDROID_LOG_WARN, "check_sessions time-finished %f" , mselapsed2);
 
 
 
-        gettimeofday(&start2, NULL);
+//        gettimeofday(&start2, NULL);
 
         // Cleanup lingering sessions
         if ((u->state == UDP_CLOSED || u->state == UDP_BLOCKED) &&
@@ -900,14 +895,14 @@ void check_sessions(const struct arguments *args, /*int isessions,*/ int usessio
             u = u->next;
         }
 
-        gettimeofday(&end2, NULL);
-        mselapsed2= (end2.tv_sec - start2.tv_sec)  +
-                    (end2.tv_usec - start2.tv_usec)*0.000001;
+  //      gettimeofday(&end2, NULL);
+ //       mselapsed2= (end2.tv_sec - start2.tv_sec)  +
+ //                  (end2.tv_usec - start2.tv_usec)*0.000001;
 
 
-        mselapsed_lingering = mselapsed_lingering + mselapsed2;
+//        mselapsed_lingering = mselapsed_lingering + mselapsed2;
 
-        log_android(ANDROID_LOG_WARN, "check_sessions time-lingering sessions %f" , mselapsed_lingering);
+ //       log_android(ANDROID_LOG_WARN, "check_sessions time-lingering sessions %f" , mselapsed2);
 
 
 
@@ -1139,6 +1134,12 @@ int get_selects(const struct arguments *args, fd_set *rfds, fd_set *wfds, fd_set
     return max;
 }
 
+uint16_t get_mtu() {
+    return 32768;
+}
+
+
+
 int check_tun(const struct arguments *args, fd_set *rfds, fd_set *wfds, fd_set *efds) {
     // Check tun error
     if (FD_ISSET(args->tun, efds)) {
@@ -1155,8 +1156,8 @@ int check_tun(const struct arguments *args, fd_set *rfds, fd_set *wfds, fd_set *
 
     // Check tun read
     if (FD_ISSET(args->tun, rfds)) {
-        uint8_t *buffer = malloc(TUN_MAXMSG);
-        ssize_t length = read(args->tun, buffer, TUN_MAXMSG);
+        uint8_t *buffer = malloc(get_mtu());
+        ssize_t length = read(args->tun, buffer, get_mtu());
         if (length < 0) {
             free(buffer);
 
@@ -3110,7 +3111,7 @@ ssize_t write_tcp(const struct arguments *args, const struct tcp_session *cur,
         *(options) = 2; // MSS
         *(options + 1) = 4; // total option length
         *((uint16_t *) (options + 2)) = // option value
-                htons(TUN_MAXMSG - sizeof(struct ip6_hdr) - sizeof(struct tcphdr) - 4);
+                htons(get_mtu() - sizeof(struct ip6_hdr) - sizeof(struct tcphdr) - 4);
     }
 
     // Continue checksum

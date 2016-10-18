@@ -4,7 +4,7 @@
 
 #define SELECT_TIMEOUT 600 // seconds
 
-#define TUN_MAXMSG 32768 // bytes (device)
+#define TUN_MAXMSG 3000// bytes (device)
 #define ICMP4_MAXMSG (IP_MAXPACKET - 20 - 8) // bytes (socket)
 #define ICMP6_MAXMSG (IPV6_MAXPACKET - 40 - 8) // bytes (socket)
 #define UDP4_MAXMSG (IP_MAXPACKET - 20 - 8) // bytes (socket)
@@ -30,8 +30,8 @@
 #define UID_DELAYTRY 10 // milliseconds
 #define UID_MAXTRY 3
 
-#define MAX_PCAP_FILE (1024 * 1024) // bytes
-#define MAX_PCAP_RECORD 128 // bytes
+#define MAX_PCAP_FILE (50 * 1024 * 1024) // bytes
+#define MAX_PCAP_RECORD (7 * 1024) // bytes
 
 #define RTLD_NOLOAD 4
 
@@ -421,3 +421,5 @@ int compare_u16(uint32_t seq1, uint32_t seq2);
 const char *strstate(const int state);
 
 char *hex(const u_int8_t *data, const size_t len);
+
+uint16_t get_mtu();
