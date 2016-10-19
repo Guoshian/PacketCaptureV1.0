@@ -646,7 +646,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
         });
 
         // Show traffic statistics
-        holder.tvStatistics.setText(context.getString(R.string.msg_mbday, rule.upspeed, rule.downspeed));
+        holder.tvStatistics.setText(context.getString(R.string.msg_mbday, rule.upspeed, rule.downspeed , rule.totalspeed));
     }
 
     private void updateRule(Rule rule, String network, boolean blocked) {

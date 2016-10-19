@@ -73,6 +73,7 @@ public class Rule {
     public float upspeed;
     public float downspeed;
     public float totalbytes;
+    public float totalspeed;
 
     public boolean changed;
 
@@ -262,6 +263,9 @@ public class Rule {
                 rule.totalbytes = up + down;
                 rule.upspeed = (float) up * 24 * 3600 * 1000 / 1024f / 1024f / now;
                 rule.downspeed = (float) down * 24 * 3600 * 1000 / 1024f / 1024f / now;
+                rule.totalspeed = (float) up * 24 * 3600 * 1000 / 1024f / 1024f / now + (float) down * 24 * 3600 * 1000 / 1024f / 1024f / now;
+
+
 
                 rule.updateChanged(default_wifi, default_other, default_roaming);
 
