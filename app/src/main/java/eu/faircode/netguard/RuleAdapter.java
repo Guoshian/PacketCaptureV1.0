@@ -139,6 +139,8 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
 
             cbOther = (CheckBox) itemView.findViewById(R.id.cbOther);
             ivScreenOther = (ImageView) itemView.findViewById(R.id.ivScreenOther);
+            tvStatistics = (TextView) itemView.findViewById(R.id.tvStatistics);
+
             tvRoaming = (TextView) itemView.findViewById(R.id.tvRoaming);
 
             llConfiguration = (LinearLayout) itemView.findViewById(R.id.llConfiguration);
@@ -380,6 +382,9 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
             Drawable wrap = DrawableCompat.wrap(holder.ivScreenOther.getDrawable());
             DrawableCompat.setTint(wrap, colorOn);
         }
+
+        //holder.tvStatistics.setText(context.getString(R.string.msg_mbday,rule.totalspeed));
+
 
         holder.tvRoaming.setAlpha(otherActive ? 1 : 0.5f);
         holder.tvRoaming.setVisibility(rule.roaming && (!rule.other_blocked || rule.screen_other) ? View.VISIBLE : View.INVISIBLE);
