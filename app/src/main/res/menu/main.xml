@@ -25,10 +25,10 @@
                 android:id="@+id/menu_app_nointernet"
                 android:checkable="true"
                 android:title="@string/menu_app_nointernet" />
-            <item
+            <!--<item
                 android:id="@+id/menu_app_disabled"
                 android:checkable="true"
-                android:title="@string/menu_app_disabled" />
+                android:title="@string/menu_app_disabled" />-->
         </menu>
     </item>
     <item

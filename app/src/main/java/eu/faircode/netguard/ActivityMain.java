@@ -567,7 +567,7 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
         }
 
         menu.findItem(R.id.menu_app_nointernet).setChecked(prefs.getBoolean("show_nointernet", true));
-        menu.findItem(R.id.menu_app_disabled).setChecked(prefs.getBoolean("show_disabled", true));
+        /*menu.findItem(R.id.menu_app_disabled).setChecked(prefs.getBoolean("show_disabled", true));*/
 
         String sort = prefs.getString("sort", "name");
         if ("data".equals(sort))
@@ -600,10 +600,10 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
                 prefs.edit().putBoolean("show_nointernet", item.isChecked()).apply();
                 return true;
 
-            case R.id.menu_app_disabled:
+            /*case R.id.menu_app_disabled:
                 item.setChecked(!item.isChecked());
                 prefs.edit().putBoolean("show_disabled", item.isChecked()).apply();
-                return true;
+                return true;*/
 
             case R.id.menu_sort_name:
                 item.setChecked(true);
