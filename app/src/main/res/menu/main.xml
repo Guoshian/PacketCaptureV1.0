@@ -13,18 +13,18 @@
         android:title="@string/menu_filter"
         netguard:showAsAction="always|collapseActionView">
         <menu>
-            <item
+            <!--<item
                 android:id="@+id/menu_app_user"
                 android:checkable="true"
                 android:title="@string/menu_app_user" />
             <item
                 android:id="@+id/menu_app_system"
                 android:checkable="true"
-                android:title="@string/menu_app_system" />
-            <item
+                android:title="@string/menu_app_system" />-->
+            <!--<item
                 android:id="@+id/menu_app_nointernet"
                 android:checkable="true"
-                android:title="@string/menu_app_nointernet" />
+                android:title="@string/menu_app_nointernet" />-->
             <!--<item
                 android:id="@+id/menu_app_disabled"
                 android:checkable="true"

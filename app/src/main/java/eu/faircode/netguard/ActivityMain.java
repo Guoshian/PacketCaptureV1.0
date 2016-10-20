@@ -557,16 +557,16 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
     public boolean onPrepareOptionsMenu(Menu menu) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        if (prefs.getBoolean("manage_system", false)) {
-            menu.findItem(R.id.menu_app_user).setChecked(prefs.getBoolean("show_user", true));
-            menu.findItem(R.id.menu_app_system).setChecked(prefs.getBoolean("show_system", false));
-        } else {
+        /*if (prefs.getBoolean("manage_system", false)) {*/
+           // menu.findItem(R.id.menu_app_user).setChecked(prefs.getBoolean("show_user", true));
+           // menu.findItem(R.id.menu_app_system).setChecked(prefs.getBoolean("show_system", false));
+       /* } else {
             Menu submenu = menu.findItem(R.id.menu_filter).getSubMenu();
             submenu.removeItem(R.id.menu_app_user);
             submenu.removeItem(R.id.menu_app_system);
-        }
+        }*/
 
-        menu.findItem(R.id.menu_app_nointernet).setChecked(prefs.getBoolean("show_nointernet", true));
+        /*menu.findItem(R.id.menu_app_nointernet).setChecked(prefs.getBoolean("show_nointernet", true));*/
         /*menu.findItem(R.id.menu_app_disabled).setChecked(prefs.getBoolean("show_disabled", true));*/
 
         String sort = prefs.getString("sort", "name");
@@ -585,7 +585,7 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
         // Handle item selection
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         switch (item.getItemId()) {
-            case R.id.menu_app_user:
+            /*case R.id.menu_app_user:
                 item.setChecked(!item.isChecked());
                 prefs.edit().putBoolean("show_user", item.isChecked()).apply();
                 return true;
@@ -593,12 +593,12 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
             case R.id.menu_app_system:
                 item.setChecked(!item.isChecked());
                 prefs.edit().putBoolean("show_system", item.isChecked()).apply();
-                return true;
+                return true;*/
 
-            case R.id.menu_app_nointernet:
+            /*case R.id.menu_app_nointernet:
                 item.setChecked(!item.isChecked());
                 prefs.edit().putBoolean("show_nointernet", item.isChecked()).apply();
-                return true;
+                return true;*/
 
             /*case R.id.menu_app_disabled:
                 item.setChecked(!item.isChecked());
