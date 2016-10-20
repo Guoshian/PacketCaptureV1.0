@@ -31,7 +31,7 @@
                 android:title="@string/menu_app_disabled" />
         </menu>
     </item>
-    <item
+    <!--<item
         android:id="@+id/menu_sort"
         android:icon="@drawable/ic_sort_white_24dp"
         android:title="@string/menu_sort"
@@ -46,7 +46,7 @@
                     android:title="@string/menu_sort_data" />
             </group>
         </menu>
-    </item>
+    </item>-->
     <item
         android:id="@+id/menu_log"
         android:title="@string/menu_log" />
