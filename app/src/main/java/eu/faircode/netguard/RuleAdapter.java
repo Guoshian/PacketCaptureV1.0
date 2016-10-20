@@ -132,6 +132,9 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
             ivExpander = (ImageView) itemView.findViewById(R.id.ivExpander);
             tvName = (TextView) itemView.findViewById(R.id.tvName);
 
+           //= (TextView) itemView.findViewById(R.id.tvStat);
+
+
             tvHosts = (TextView) itemView.findViewById(R.id.tvHosts);
 
             cbWifi = (CheckBox) itemView.findViewById(R.id.cbWifi);
@@ -165,7 +168,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
             tvNolog = (TextView) itemView.findViewById(R.id.tvNolog);
             cbNotify = (CheckBox) itemView.findViewById(R.id.cbNotify);
             btnClearAccess = (ImageButton) itemView.findViewById(R.id.btnClearAccess);
-            tvStatistics = (TextView) itemView.findViewById(R.id.tvStatistics);
+            //tvStatistics = (TextView) itemView.findViewById(R.id.tvStatistics);
 
             final View wifiParent = (View) cbWifi.getParent();
             wifiParent.post(new Runnable() {
@@ -383,7 +386,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
             DrawableCompat.setTint(wrap, colorOn);
         }
 
-        //holder.tvStatistics.setText(context.getString(R.string.msg_mbday,rule.totalspeed));
+        holder.tvStatistics.setText(context.getString(R.string.msg_mbday,rule.totalspeed));
 
 
         holder.tvRoaming.setAlpha(otherActive ? 1 : 0.5f);
@@ -421,6 +424,8 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
                 context.startActivity(rule.intent);
             }
         });
+
+       // holder.tvStatistics.setText(context.getString(R.string.msg_mbday, rule.upspeed, rule.downspeed , rule.totalspeed));
 
         // Show Wi-Fi screen on condition
         holder.cbScreenWifi.setOnCheckedChangeListener(null);
@@ -651,7 +656,9 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
         });
 
         // Show traffic statistics
-        holder.tvStatistics.setText(context.getString(R.string.msg_mbday, rule.upspeed, rule.downspeed , rule.totalspeed));
+        holder.tvStatistics.setText(context.getString(R.string.msg_mbday, rule.totalspeed));
+        //holder.tvStatistics.setText(context.getString(R.string.msg_mbday, rule.upspeed, rule.downspeed , rule.totalspeed));
+
     }
 
     private void updateRule(Rule rule, String network, boolean blocked) {
