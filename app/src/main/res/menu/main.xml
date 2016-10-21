@@ -7,7 +7,7 @@
         android:title="@string/menu_search"
         netguard:actionViewClass="android.support.v7.widget.SearchView"
         netguard:showAsAction="always|collapseActionView" />
-    <item
+    <!--<item
         android:id="@+id/menu_filter"
         android:icon="@drawable/ic_filter_list_white_24dp"
         android:title="@string/menu_filter"
@@ -21,16 +21,16 @@
                 android:id="@+id/menu_app_system"
                 android:checkable="true"
                 android:title="@string/menu_app_system" />
-            <!--<item
+            <item
                 android:id="@+id/menu_app_nointernet"
                 android:checkable="true"
-                android:title="@string/menu_app_nointernet" />-->
-            <!--<item
+                android:title="@string/menu_app_nointernet" />
+            <item
                 android:id="@+id/menu_app_disabled"
                 android:checkable="true"
-                android:title="@string/menu_app_disabled" />-->
+                android:title="@string/menu_app_disabled" />
         </menu>
-    </item>
+    </item>-->
     <item
         android:id="@+id/menu_sort"
         android:icon="@drawable/ic_sort_white_24dp"

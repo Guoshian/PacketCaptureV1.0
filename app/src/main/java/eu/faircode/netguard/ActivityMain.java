@@ -557,22 +557,15 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
     public boolean onPrepareOptionsMenu(Menu menu) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        if (prefs.getBoolean("manage_system", false)) {
+        /*if (prefs.getBoolean("manage_system", false)) {
             /*menu.findItem(R.id.menu_app_user).setChecked(prefs.getBoolean("show_user", true));
-            menu.findItem(R.id.menu_app_system).setChecked(prefs.getBoolean("show_system", false));*/
-
-            menu.findItem(R.id.menu_app_user).setChecked(prefs.getBoolean("show_user", true));
             menu.findItem(R.id.menu_app_system).setChecked(prefs.getBoolean("show_system", false));
+
         } else {
            Menu submenu = menu.findItem(R.id.menu_filter).getSubMenu();
             submenu.removeItem(R.id.menu_app_user);
             submenu.removeItem(R.id.menu_app_system);
-        }
-
-        //Menu submenu = menu.findItem(R.id.menu_filter).getSubMenu();
-        //submenu.removeItem(R.id.menu_app_user);
-        //submenu.removeItem(R.id.menu_app_system);
-
+        }*/
 
         /*menu.findItem(R.id.menu_app_nointernet).setChecked(prefs.getBoolean("show_nointernet", true));*/
         /*menu.findItem(R.id.menu_app_disabled).setChecked(prefs.getBoolean("show_disabled", true));*/
@@ -594,7 +587,7 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
         // Handle item selection
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         switch (item.getItemId()) {
-            case R.id.menu_app_user:
+            /*case R.id.menu_app_user:
                 item.setChecked(!item.isChecked());
                 prefs.edit().putBoolean("show_user", item.isChecked()).apply();
                 return true;
@@ -602,7 +595,7 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
             case R.id.menu_app_system:
                 item.setChecked(!item.isChecked());
                 prefs.edit().putBoolean("show_system", item.isChecked()).apply();
-                return true;
+                return true;*/
 
             /*case R.id.menu_app_nointernet:
                 item.setChecked(!item.isChecked());
@@ -617,12 +610,16 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
             case R.id.menu_sort_name:
                 item.setChecked(true);
                 prefs.edit().putString("sort", "name").apply();
+                prefs.edit().putBoolean("show_user", item.isChecked()).apply();
+                prefs.edit().putBoolean("show_system", item.isChecked()).apply();
 
                 return true;
 
             case R.id.menu_sort_data:
                 item.setChecked(true);
                 prefs.edit().putString("sort", "data").apply();
+                prefs.edit().putBoolean("show_user", item.isChecked()).apply();
+                prefs.edit().putBoolean("show_system", item.isChecked()).apply();
 
                 return true;
 
