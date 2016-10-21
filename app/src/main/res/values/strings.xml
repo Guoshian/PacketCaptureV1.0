@@ -156,7 +156,9 @@ Your internet traffic is not being sent to a remote VPN server.</string>
 
     <string name="title_conditions">Conditions</string>
     <string name="title_screen_wifi">Allow Wi-Fi when screen is on</string>
+    <string name="title_stop_wifi">Stop Wi-fi</string>
     <string name="title_screen_other">Allow mobile when screen is on</string>
+    <string name="title_stop_mobile">Stop Mobile</string>
     <string name="title_roaming">Block when roaming</string>
     <string name="title_disabled">is disabled</string>
     <string name="title_internet">has no internet permission</string>
