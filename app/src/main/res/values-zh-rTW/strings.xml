@@ -9,8 +9,8 @@ however it is impossible to guarantee NetGuard will work correctly on every devi
 \n\nBy using NetGuard, you agree to the <a href="http://www.gnu.org/licenses/gpl.txt">GNU General Public License version 3</a></string>
   <string name="menu_search">搜尋App</string>
   <string name="menu_filter">篩選程式</string>
-  <!--<string name="menu_app_user">顯示使用者程式</string>
-  <string name="menu_app_system">顯示系統程式</string>-->
+  <string name="menu_app_user">顯示使用者程式</string>
+  <string name="menu_app_system">顯示系統程式</string>
   <!--<string name="menu_app_nointernet">顯示不用網路的程式</string>-->
   <!--<string name="menu_app_disabled">顯示禁用程式</string>-->
   <string name="menu_sort">程式排序</string>

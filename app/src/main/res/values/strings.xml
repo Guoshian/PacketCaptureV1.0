@@ -9,8 +9,8 @@ however it is impossible to guarantee NetGuard will work correctly on every devi
 
     <string name="menu_search">Search for application</string>
     <string name="menu_filter">Filter applications</string>
-    <!--<string name="menu_app_user">Show user applications</string>
-    <string name="menu_app_system">Show system applications</string>-->
+    <string name="menu_app_user">Show user applications</string>
+    <string name="menu_app_system">Show system applications</string>
     <!--<string name="menu_app_nointernet">Show applications without internet</string>-->
     <!--<string name="menu_app_disabled">Show disabled applications</string>-->
     <string name="menu_sort">Sort applications</string>
