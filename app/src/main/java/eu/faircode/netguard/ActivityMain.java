@@ -558,13 +558,21 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         if (prefs.getBoolean("manage_system", false)) {
+            /*menu.findItem(R.id.menu_app_user).setChecked(prefs.getBoolean("show_user", true));
+            menu.findItem(R.id.menu_app_system).setChecked(prefs.getBoolean("show_system", false));*/
+
             menu.findItem(R.id.menu_app_user).setChecked(prefs.getBoolean("show_user", true));
             menu.findItem(R.id.menu_app_system).setChecked(prefs.getBoolean("show_system", false));
         } else {
-            Menu submenu = menu.findItem(R.id.menu_filter).getSubMenu();
+           Menu submenu = menu.findItem(R.id.menu_filter).getSubMenu();
             submenu.removeItem(R.id.menu_app_user);
             submenu.removeItem(R.id.menu_app_system);
         }
+
+        //Menu submenu = menu.findItem(R.id.menu_filter).getSubMenu();
+        //submenu.removeItem(R.id.menu_app_user);
+        //submenu.removeItem(R.id.menu_app_system);
+
 
         /*menu.findItem(R.id.menu_app_nointernet).setChecked(prefs.getBoolean("show_nointernet", true));*/
         /*menu.findItem(R.id.menu_app_disabled).setChecked(prefs.getBoolean("show_disabled", true));*/
@@ -574,6 +582,7 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
             menu.findItem(R.id.menu_sort_data).setChecked(true);
         else
             menu.findItem(R.id.menu_sort_name).setChecked(true);
+
 
         return super.onPrepareOptionsMenu(menu);
     }
@@ -608,12 +617,22 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
             case R.id.menu_sort_name:
                 item.setChecked(true);
                 prefs.edit().putString("sort", "name").apply();
+
                 return true;
 
             case R.id.menu_sort_data:
                 item.setChecked(true);
                 prefs.edit().putString("sort", "data").apply();
+
                 return true;
+
+            case R.id.menu_app_userd:
+                item.setChecked(!item.isChecked());
+
+                return true;
+
+
+
 
             case R.id.menu_log:
                 if (IAB.isPurchased(ActivityPro.SKU_LOG, this))
