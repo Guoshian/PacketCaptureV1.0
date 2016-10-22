@@ -97,7 +97,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
 
         public CheckBox cbOther;
         //public ImageView ivScreenOther;
-        public TextView tvRoaming;
+        //public TextView tvRoaming;
 
         public LinearLayout llConfiguration;
         public TextView tvUid;
@@ -144,7 +144,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
             tvStatistics = (TextView) itemView.findViewById(R.id.tvStatistics);
             tvStatistics0 = (TextView) itemView.findViewById(R.id.tvStatistics0);
 
-            tvRoaming = (TextView) itemView.findViewById(R.id.tvRoaming);
+            //tvRoaming = (TextView) itemView.findViewById(R.id.tvRoaming);
 
             llConfiguration = (LinearLayout) itemView.findViewById(R.id.llConfiguration);
             tvUid = (TextView) itemView.findViewById(R.id.tvUid);
@@ -395,8 +395,8 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
         holder.tvStatistics.setText(context.getString(R.string.msg_mbday,rule.totalspeed));
 
 
-        holder.tvRoaming.setAlpha(otherActive ? 1 : 0.5f);
-        holder.tvRoaming.setVisibility(rule.roaming && (!rule.other_blocked || rule.screen_other) ? View.VISIBLE : View.INVISIBLE);
+        //holder.tvRoaming.setAlpha(otherActive ? 1 : 0.5f);
+        //holder.tvRoaming.setVisibility(rule.roaming && (!rule.other_blocked || rule.screen_other) ? View.VISIBLE : View.INVISIBLE);
 
         // Expanded configuration section
         holder.llConfiguration.setVisibility(rule.expanded ? View.VISIBLE : View.GONE);
