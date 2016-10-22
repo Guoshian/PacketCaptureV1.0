@@ -106,8 +106,8 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
         public TextView tvDisabled;
         public TextView tvInternet;
 
-        public ImageView ivWifiLegend;
-        public CheckBox cbScreenWifi;
+        //public ImageView ivWifiLegend;
+        //public CheckBox cbScreenWifi;
 
         public ImageView ivOtherLegend;
         public CheckBox cbScreenOther;
@@ -153,8 +153,8 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
             tvDisabled = (TextView) itemView.findViewById(R.id.tvDisabled);
             tvInternet = (TextView) itemView.findViewById(R.id.tvInternet);
 
-            ivWifiLegend = (ImageView) itemView.findViewById(R.id.ivWifiLegend);
-            cbScreenWifi = (CheckBox) itemView.findViewById(R.id.cbScreenWifi);
+            //ivWifiLegend = (ImageView) itemView.findViewById(R.id.ivWifiLegend);
+            //cbScreenWifi = (CheckBox) itemView.findViewById(R.id.cbScreenWifi);
 
             ivOtherLegend = (ImageView) itemView.findViewById(R.id.ivOtherLegend);
             cbScreenOther = (CheckBox) itemView.findViewById(R.id.cbScreenOther);
@@ -434,16 +434,16 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
        // holder.tvStatistics.setText(context.getString(R.string.msg_mbday, rule.upspeed, rule.downspeed , rule.totalspeed));
 
         // Show Wi-Fi screen on condition
-        holder.cbScreenWifi.setOnCheckedChangeListener(null);
-        holder.cbScreenWifi.setChecked(rule.screen_wifi);
-        holder.cbScreenWifi.setEnabled(rule.wifi_blocked);
+        //holder.cbScreenWifi.setOnCheckedChangeListener(null);
+        //holder.cbScreenWifi.setChecked(rule.screen_wifi);
+        //holder.cbScreenWifi.setEnabled(rule.wifi_blocked);
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+        /*if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             Drawable wrap = DrawableCompat.wrap(holder.ivWifiLegend.getDrawable());
             DrawableCompat.setTint(wrap, colorOn);
-        }
+        }*/
 
-        holder.cbScreenWifi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        /*holder.cbScreenWifi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // Update rule
@@ -466,7 +466,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
                 // Apply updated rule
                 SinkholeService.reload(null, "rule changed", context);
             }
-        });
+        });*/
 
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
@@ -548,7 +548,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
                     public void onSure() {
                         holder.cbWifi.setChecked(rule.wifi_default);
                         holder.cbMobile.setChecked(rule.other_default);
-                        holder.cbScreenWifi.setChecked(rule.screen_wifi_default);
+                        //holder.cbScreenWifi.setChecked(rule.screen_wifi_default);
                         holder.cbScreenOther.setChecked(rule.screen_other_default);
                         holder.cbRoaming.setChecked(rule.roaming_default);
                     }
