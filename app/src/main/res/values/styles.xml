@@ -19,7 +19,7 @@
     <style name="AppThemeTeal" parent="BaseThemeDark">
         <item name="colorPrimary">@color/colorBluePrimaryDark</item>
         <item name="colorPrimaryDark">@color/colorBluePrimary</item>
-        <item name="colorAccent">@color/colorAmberPrimaryDark</item>
+        <item name="colorAccent">@color/colorBluePrimary</item>
         <item name="colorOn">@color/colorTealOn</item>
         <item name="colorOff">@color/colorTealOff</item>
         <item name="expander">@drawable/expander_black</item>
