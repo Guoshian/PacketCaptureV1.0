@@ -176,8 +176,8 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
         });
 
         // Disabled warning
-        TextView tvDisabled = (TextView) findViewById(R.id.tvDisabled);
-        tvDisabled.setVisibility(enabled ? View.GONE : View.VISIBLE);
+       /* TextView tvDisabled = (TextView) findViewById(R.id.tvDisabled);
+        tvDisabled.setVisibility(enabled ? View.GONE : View.VISIBLE);*/
 
         // Application list
         RecyclerView rvApplication = (RecyclerView) findViewById(R.id.rvApplication);
@@ -390,8 +390,8 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
             boolean enabled = prefs.getBoolean(name, false);
 
             // Display disabled warning
-            TextView tvDisabled = (TextView) findViewById(R.id.tvDisabled);
-            tvDisabled.setVisibility(enabled ? View.GONE : View.VISIBLE);
+            /*TextView tvDisabled = (TextView) findViewById(R.id.tvDisabled);
+            tvDisabled.setVisibility(enabled ? View.GONE : View.VISIBLE);*/
 
             // Check switch state
             SwitchCompat swEnabled = (SwitchCompat) getSupportActionBar().getCustomView().findViewById(R.id.swEnabled);
@@ -667,14 +667,14 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
         // Create view
         LayoutInflater inflater = LayoutInflater.from(this);
         View view = inflater.inflate(R.layout.about, null);
-        TextView tvVersion = (TextView) view.findViewById(R.id.tvVersion);
+        //TextView tvVersion = (TextView) view.findViewById(R.id.tvVersion);
         Button btnRate = (Button) view.findViewById(R.id.btnRate);
         TextView tvLicense = (TextView) view.findViewById(R.id.tvLicense);
 
         // Show version
-        tvVersion.setText(Util.getSelfVersionName(this));
-        if (!Util.hasValidFingerprint(this))
-            tvVersion.setTextColor(Color.GRAY);
+        //tvVersion.setText(Util.getSelfVersionName(this));
+        //if (!Util.hasValidFingerprint(this))
+         //   tvVersion.setTextColor(Color.GRAY);
 
         // Handle license
         tvLicense.setMovementMethod(LinkMovementMethod.getInstance());

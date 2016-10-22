@@ -101,8 +101,8 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
 
         public LinearLayout llConfiguration;
         public TextView tvUid;
-        public TextView tvPackage;
-        public TextView tvVersion;
+        //public TextView tvPackage;
+        //public TextView tvVersion;
         public TextView tvDisabled;
         public TextView tvInternet;
 
@@ -148,8 +148,8 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
 
             llConfiguration = (LinearLayout) itemView.findViewById(R.id.llConfiguration);
             tvUid = (TextView) itemView.findViewById(R.id.tvUid);
-            tvPackage = (TextView) itemView.findViewById(R.id.tvPackage);
-            tvVersion = (TextView) itemView.findViewById(R.id.tvVersion);
+            //tvPackage = (TextView) itemView.findViewById(R.id.tvPackage);
+            //tvVersion = (TextView) itemView.findViewById(R.id.tvVersion);
             tvDisabled = (TextView) itemView.findViewById(R.id.tvDisabled);
             tvInternet = (TextView) itemView.findViewById(R.id.tvInternet);
 
@@ -403,8 +403,8 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
 
         // Show application details
         holder.tvUid.setText(rule.info.applicationInfo == null ? "?" : Integer.toString(rule.info.applicationInfo.uid));
-        holder.tvPackage.setText(rule.info.packageName);
-        holder.tvVersion.setText(rule.info.versionName + '/' + rule.info.versionCode);
+        //holder.tvPackage.setText(rule.info.packageName);
+        //holder.tvVersion.setText(rule.info.versionName + '/' + rule.info.versionCode);
 
         // Show application state
         holder.tvDisabled.setVisibility(rule.enabled ? View.GONE : View.VISIBLE);

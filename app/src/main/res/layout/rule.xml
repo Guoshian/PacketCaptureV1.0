@@ -176,19 +176,19 @@
             android:layout_marginTop="4dp"
             android:textAppearance="@style/TextSmall" />
 
-        <TextView
+        <!--<TextView
             android:id="@+id/tvPackage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:textAppearance="@style/TextSmall" />
+            android:textAppearance="@style/TextSmall" />-->
 
-        <TextView
+        <!--<TextView
             android:id="@+id/tvVersion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:textAppearance="@style/TextSmall" />
+            android:textAppearance="@style/TextSmall" />-->
 
         <TextView
             android:id="@+id/tvInternet"
