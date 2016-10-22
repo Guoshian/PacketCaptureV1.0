@@ -110,8 +110,8 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
         //public CheckBox cbScreenWifi;
 
         public ImageView ivOtherLegend;
-        public CheckBox cbScreenOther;
-        public CheckBox cbRoaming;
+        //public CheckBox cbScreenOther;
+        //public CheckBox cbRoaming;
 
         public ImageButton btnClear;
         //public ImageButton btnSettings;
@@ -156,9 +156,9 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
             //ivWifiLegend = (ImageView) itemView.findViewById(R.id.ivWifiLegend);
             //cbScreenWifi = (CheckBox) itemView.findViewById(R.id.cbScreenWifi);
 
-            ivOtherLegend = (ImageView) itemView.findViewById(R.id.ivOtherLegend);
-            cbScreenOther = (CheckBox) itemView.findViewById(R.id.cbScreenOther);
-            cbRoaming = (CheckBox) itemView.findViewById(R.id.cbRoaming);
+            //ivOtherLegend = (ImageView) itemView.findViewById(R.id.ivOtherLegend);
+           //cbScreenOther = (CheckBox) itemView.findViewById(R.id.cbScreenOther);
+            //cbRoaming = (CheckBox) itemView.findViewById(R.id.cbRoaming);
 
             btnClear = (ImageButton) itemView.findViewById(R.id.btnClear);
             //btnSettings = (ImageButton) itemView.findViewById(R.id.btnSettings);
@@ -475,11 +475,11 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
         }
 
         // Show mobile screen on condition
-        holder.cbScreenOther.setOnCheckedChangeListener(null);
-        holder.cbScreenOther.setChecked(rule.screen_other);
-        holder.cbScreenOther.setEnabled(rule.other_blocked);
+        //holder.cbScreenOther.setOnCheckedChangeListener(null);
+        //holder.cbScreenOther.setChecked(rule.screen_other);
+        //holder.cbScreenOther.setEnabled(rule.other_blocked);
 
-        holder.cbScreenOther.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        /*holder.cbScreenOther.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // Update rule
@@ -502,14 +502,14 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
                 // Apply updated rule
                 SinkholeService.reload(null, "rule changed", context);
             }
-        });
+        });*/
 
         // Show roaming condition
-        holder.cbRoaming.setOnCheckedChangeListener(null);
-        holder.cbRoaming.setChecked(rule.roaming);
-        holder.cbRoaming.setEnabled(!rule.other_blocked || rule.screen_other);
+        //holder.cbRoaming.setOnCheckedChangeListener(null);
+       // holder.cbRoaming.setChecked(rule.roaming);
+        //holder.cbRoaming.setEnabled(!rule.other_blocked || rule.screen_other);
 
-        holder.cbRoaming.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        /*holder.cbRoaming.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             @TargetApi(Build.VERSION_CODES.M)
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -537,7 +537,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
                 if (isChecked && !Util.hasPhoneStatePermission(context))
                     context.requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE}, ActivityMain.REQUEST_ROAMING);
             }
-        });
+        });*/
 
         // Reset rule
         holder.btnClear.setOnClickListener(new View.OnClickListener() {
@@ -549,8 +549,8 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
                         holder.cbWifi.setChecked(rule.wifi_default);
                         holder.cbMobile.setChecked(rule.other_default);
                         //holder.cbScreenWifi.setChecked(rule.screen_wifi_default);
-                        holder.cbScreenOther.setChecked(rule.screen_other_default);
-                        holder.cbRoaming.setChecked(rule.roaming_default);
+                        //holder.cbScreenOther.setChecked(rule.screen_other_default);
+                        //holder.cbRoaming.setChecked(rule.roaming_default);
                     }
                 });
             }

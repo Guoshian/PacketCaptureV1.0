@@ -270,7 +270,7 @@
                 android:layout_marginTop="4dp"
                 android:orientation="horizontal">
 
-                <ImageView
+                <!--<ImageView
                     android:id="@+id/ivOtherLegend"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
@@ -282,7 +282,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/title_screen_other"
-                    android:textAppearance="@style/TextSmall" />
+                    android:textAppearance="@style/TextSmall" />-->
             </LinearLayout>
 
             <LinearLayout
@@ -291,7 +291,7 @@
                 android:layout_marginTop="4dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <!--<TextView
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_gravity="center_vertical"
@@ -306,7 +306,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/title_roaming"
-                    android:textAppearance="@style/TextSmall" />
+                    android:textAppearance="@style/TextSmall" />-->
             </LinearLayout>
         </LinearLayout>
 
