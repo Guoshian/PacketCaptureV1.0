@@ -135,12 +135,12 @@
                     android:layout_gravity="center_vertical"
                     android:orientation="vertical">
 
-                    <ImageView
+                <!--    <ImageView
                         android:id="@+id/ivScreenOther"
                         android:layout_width="16dp"
                         android:layout_height="16dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/screen_on" />
+                        android:src="@drawable/screen_on" />-->
 
                     <TextView
                         android:id="@+id/tvRoaming"

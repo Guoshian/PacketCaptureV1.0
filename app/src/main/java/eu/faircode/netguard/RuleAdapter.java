@@ -96,7 +96,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
         //public ImageView ivScreenWifi;
 
         public CheckBox cbOther;
-        public ImageView ivScreenOther;
+        //public ImageView ivScreenOther;
         public TextView tvRoaming;
 
         public LinearLayout llConfiguration;
@@ -139,7 +139,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
             //ivScreenWifi = (ImageView) itemView.findViewById(R.id.ivScreenWifi);
 
             cbOther = (CheckBox) itemView.findViewById(R.id.cbOther);
-            ivScreenOther = (ImageView) itemView.findViewById(R.id.ivScreenOther);
+            //ivScreenOther = (ImageView) itemView.findViewById(R.id.ivScreenOther);
 
             tvStatistics = (TextView) itemView.findViewById(R.id.tvStatistics);
             tvStatistics0 = (TextView) itemView.findViewById(R.id.tvStatistics0);
@@ -385,12 +385,12 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
         }
         holder.cbOther.setOnCheckedChangeListener(cbListener);
 
-        holder.ivScreenOther.setAlpha(otherActive ? 1 : 0.5f);
+        /*holder.ivScreenOther.setAlpha(otherActive ? 1 : 0.5f);
         holder.ivScreenOther.setVisibility(rule.screen_other && rule.other_blocked ? View.VISIBLE : View.INVISIBLE);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             Drawable wrap = DrawableCompat.wrap(holder.ivScreenOther.getDrawable());
             DrawableCompat.setTint(wrap, colorOn);
-        }
+        }*/
 
         holder.tvStatistics.setText(context.getString(R.string.msg_mbday,rule.totalspeed));
 
