@@ -93,7 +93,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
         public TextView tvHosts;
 
         public CheckBox cbWifi;
-        public ImageView ivScreenWifi;
+        //public ImageView ivScreenWifi;
 
         public CheckBox cbOther;
         public ImageView ivScreenOther;
@@ -136,7 +136,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
             tvHosts = (TextView) itemView.findViewById(R.id.tvHosts);
 
             cbWifi = (CheckBox) itemView.findViewById(R.id.cbWifi);
-            ivScreenWifi = (ImageView) itemView.findViewById(R.id.ivScreenWifi);
+            //ivScreenWifi = (ImageView) itemView.findViewById(R.id.ivScreenWifi);
 
             cbOther = (CheckBox) itemView.findViewById(R.id.cbOther);
             ivScreenOther = (ImageView) itemView.findViewById(R.id.ivScreenOther);
@@ -368,12 +368,12 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
         }
         holder.cbWifi.setOnCheckedChangeListener(cbListener);
 
-        holder.ivScreenWifi.setAlpha(wifiActive ? 1 : 0.5f);
+       /* holder.ivScreenWifi.setAlpha(wifiActive ? 1 : 0.5f);
         holder.ivScreenWifi.setVisibility(rule.screen_wifi && rule.wifi_blocked ? View.VISIBLE : View.INVISIBLE);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             Drawable wrap = DrawableCompat.wrap(holder.ivScreenWifi.getDrawable());
             DrawableCompat.setTint(wrap, colorOn);
-        }
+        }*/
 
         // Mobile settings
         holder.cbOther.setAlpha(otherActive ? 1 : 0.5f);
