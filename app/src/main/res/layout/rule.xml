@@ -24,11 +24,13 @@
 
             <ImageView
                 android:id="@+id/ivExpander"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:alpha="0.5"
-                android:src="?attr/expander" />
+               />
+            <!--android:src="?attr/expander"-->
+
 
             <ImageView
                 android:id="@+id/ivIcon"

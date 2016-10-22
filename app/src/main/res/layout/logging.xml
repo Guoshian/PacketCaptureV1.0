@@ -26,11 +26,14 @@
         android:layout_height="match_parent"
         android:layout_below="@id/tvDisabled"
         android:scrollbarStyle="insideOverlay"
-        android:scrollbars="vertical" />
+        android:scrollbars="vertical"
+        />
 
     <View
         android:id="@+id/vwPopupAnchor"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_centerInParent="true" />
+
+
 </RelativeLayout>
