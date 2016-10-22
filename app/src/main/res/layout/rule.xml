@@ -356,18 +356,20 @@
             android:textAppearance="@style/TextSmall"
             android:textStyle="italic" />-->
 
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:orientation="horizontal">
 
-            <ImageButton
+            <!--<ImageButton
                 android:id="@+id/btnClearAccess"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_delete_white_24dp" />
+                android:src="@drawable/ic_delete_white_24dp" />-->
 
             <TextView
                 android:id="@+id/tvStatistics0"
@@ -380,7 +382,12 @@
                 android:nestedScrollingEnabled="false" />
         </LinearLayout>
 
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/title_setting"
+            android:textAppearance="@style/TextTitle" />
 
         <LinearLayout
             android:layout_width="wrap_content"

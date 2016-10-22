@@ -120,7 +120,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
         public ListView lvAccess;
         //public TextView tvNolog;
         //public CheckBox cbNotify;
-        public ImageButton btnClearAccess;
+        //public ImageButton btnClearAccess;
         public TextView tvStatistics;
         public TextView tvStatistics0;
 
@@ -167,7 +167,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
             lvAccess = (ListView) itemView.findViewById(R.id.lvAccess);
             //tvNolog = (TextView) itemView.findViewById(R.id.tvNolog);
             //cbNotify = (CheckBox) itemView.findViewById(R.id.cbNotify);
-            btnClearAccess = (ImageButton) itemView.findViewById(R.id.btnClearAccess);
+            //btnClearAccess = (ImageButton) itemView.findViewById(R.id.btnClearAccess);
             //tvStatistics = (TextView) itemView.findViewById(R.id.tvStatistics);
 
 
@@ -647,7 +647,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
         });*/
 
         // Clear access log
-        holder.btnClearAccess.setOnClickListener(new View.OnClickListener() {
+        /*holder.btnClearAccess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Util.areYouSure(view.getContext(), R.string.msg_reset_access, new Util.DoubtListener() {
@@ -659,7 +659,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
                     }
                 });
             }
-        });
+        });*/
 
         // Show traffic statistics
         //holder.tvStatistics.setText(context.getString(R.string.msg_mbday, rule.totalspeed));
