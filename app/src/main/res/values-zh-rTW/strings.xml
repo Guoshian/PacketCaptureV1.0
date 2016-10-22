@@ -142,7 +142,7 @@ Your internet traffic is not being sent to a remote VPN server.</string>
   <string name="title_roaming">漫遊時阻擋</string>
   <string name="title_disabled">未啟用</string>
   <string name="title_internet">沒有網路權限</string>
-  <string name="title_launch">啟動App</string>
+  <!--<string name="title_launch">啟動App</string>-->
   <string name="title_access">Access attempts</string>
   <string name="title_no_log"><u>Logging is not enabled</u></string>
   <string name="title_precedence">Access rules take precedence over other rules</string>

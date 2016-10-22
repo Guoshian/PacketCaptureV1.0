@@ -114,8 +114,8 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
         public CheckBox cbRoaming;
 
         public ImageButton btnClear;
-        public ImageButton btnSettings;
-        public Button btnLaunch;
+        //public ImageButton btnSettings;
+        //public Button btnLaunch;
 
         public ListView lvAccess;
         public TextView tvNolog;
@@ -161,8 +161,8 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
             cbRoaming = (CheckBox) itemView.findViewById(R.id.cbRoaming);
 
             btnClear = (ImageButton) itemView.findViewById(R.id.btnClear);
-            btnSettings = (ImageButton) itemView.findViewById(R.id.btnSettings);
-            btnLaunch = (Button) itemView.findViewById(R.id.btnLaunch);
+            //btnSettings = (ImageButton) itemView.findViewById(R.id.btnSettings);
+            //btnLaunch = (Button) itemView.findViewById(R.id.btnLaunch);
 
             lvAccess = (ListView) itemView.findViewById(R.id.lvAccess);
             tvNolog = (TextView) itemView.findViewById(R.id.tvNolog);
@@ -411,7 +411,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
         holder.tvInternet.setVisibility(rule.internet ? View.GONE : View.VISIBLE);
 
         // Launch application settings
-        final Intent settings = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        /*final Intent settings = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         settings.setData(Uri.parse("package:" + rule.info.packageName));
         holder.btnSettings.setVisibility(
                 !debuggable || settings.resolveActivity(context.getPackageManager()) == null ? View.GONE : View.VISIBLE);
@@ -420,16 +420,16 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
             public void onClick(View view) {
                 context.startActivity(settings);
             }
-        });
+        });*/
 
         // Launch application
-        holder.btnLaunch.setVisibility(!debuggable || rule.intent == null ? View.GONE : View.VISIBLE);
+        /*holder.btnLaunch.setVisibility(!debuggable || rule.intent == null ? View.GONE : View.VISIBLE);
         holder.btnLaunch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 context.startActivity(rule.intent);
             }
-        });
+        });*/
 
        // holder.tvStatistics.setText(context.getString(R.string.msg_mbday, rule.upspeed, rule.downspeed , rule.totalspeed));
 
