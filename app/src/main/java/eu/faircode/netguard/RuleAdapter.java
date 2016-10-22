@@ -113,7 +113,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
         //public CheckBox cbScreenOther;
         //public CheckBox cbRoaming;
 
-        public ImageButton btnClear;
+        //public ImageButton btnClear;
         //public ImageButton btnSettings;
         //public Button btnLaunch;
 
@@ -160,7 +160,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
            //cbScreenOther = (CheckBox) itemView.findViewById(R.id.cbScreenOther);
             //cbRoaming = (CheckBox) itemView.findViewById(R.id.cbRoaming);
 
-            btnClear = (ImageButton) itemView.findViewById(R.id.btnClear);
+            //btnClear = (ImageButton) itemView.findViewById(R.id.btnClear);
             //btnSettings = (ImageButton) itemView.findViewById(R.id.btnSettings);
             //btnLaunch = (Button) itemView.findViewById(R.id.btnLaunch);
 
@@ -540,7 +540,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
         });*/
 
         // Reset rule
-        holder.btnClear.setOnClickListener(new View.OnClickListener() {
+        /*holder.btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Util.areYouSure(view.getContext(), R.string.msg_clear_rules, new Util.DoubtListener() {
@@ -554,7 +554,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
                     }
                 });
             }
-        });
+        });*/
 
         // Show access rules
         if (rule.expanded) {
