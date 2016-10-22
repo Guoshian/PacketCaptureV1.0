@@ -340,13 +340,13 @@
             android:textStyle="bold"
             android:visibility="gone" />-->
 
-        <CheckBox
+        <!--<CheckBox
             android:id="@+id/cbNotify"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="@string/title_notify"
-            android:textAppearance="@style/TextSmall" />
+            android:textAppearance="@style/TextSmall" />-->
 
         <TextView
             android:layout_width="wrap_content"

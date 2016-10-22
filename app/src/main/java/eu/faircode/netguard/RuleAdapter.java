@@ -119,7 +119,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
 
         public ListView lvAccess;
         //public TextView tvNolog;
-        public CheckBox cbNotify;
+        //public CheckBox cbNotify;
         public ImageButton btnClearAccess;
         public TextView tvStatistics;
         public TextView tvStatistics0;
@@ -166,7 +166,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
 
             lvAccess = (ListView) itemView.findViewById(R.id.lvAccess);
             //tvNolog = (TextView) itemView.findViewById(R.id.tvNolog);
-            cbNotify = (CheckBox) itemView.findViewById(R.id.cbNotify);
+            //cbNotify = (CheckBox) itemView.findViewById(R.id.cbNotify);
             btnClearAccess = (ImageButton) itemView.findViewById(R.id.btnClearAccess);
             //tvStatistics = (TextView) itemView.findViewById(R.id.tvStatistics);
 
@@ -636,15 +636,15 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
         // Show disable access notifications setting
         boolean notify = prefs.getBoolean("notify_access", false);
         final String key = "notify_" + rule.info.applicationInfo.uid;
-        holder.cbNotify.setOnCheckedChangeListener(null);
-        holder.cbNotify.setEnabled(notify);
-        holder.cbNotify.setChecked(prefs.getBoolean(key, true));
-        holder.cbNotify.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
+       // holder.cbNotify.setOnCheckedChangeListener(null);
+        //holder.cbNotify.setEnabled(notify);
+        //holder.cbNotify.setChecked(prefs.getBoolean(key, true));
+        //holder.cbNotify.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+         /*   @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 prefs.edit().putBoolean(key, isChecked).apply();
             }
-        });
+        });*/
 
         // Clear access log
         holder.btnClearAccess.setOnClickListener(new View.OnClickListener() {
