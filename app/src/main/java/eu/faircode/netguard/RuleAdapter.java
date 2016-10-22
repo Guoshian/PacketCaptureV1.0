@@ -118,7 +118,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
         //public Button btnLaunch;
 
         public ListView lvAccess;
-        public TextView tvNolog;
+        //public TextView tvNolog;
         public CheckBox cbNotify;
         public ImageButton btnClearAccess;
         public TextView tvStatistics;
@@ -165,7 +165,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
             //btnLaunch = (Button) itemView.findViewById(R.id.btnLaunch);
 
             lvAccess = (ListView) itemView.findViewById(R.id.lvAccess);
-            tvNolog = (TextView) itemView.findViewById(R.id.tvNolog);
+            //tvNolog = (TextView) itemView.findViewById(R.id.tvNolog);
             cbNotify = (CheckBox) itemView.findViewById(R.id.cbNotify);
             btnClearAccess = (ImageButton) itemView.findViewById(R.id.btnClearAccess);
             //tvStatistics = (TextView) itemView.findViewById(R.id.tvStatistics);
@@ -625,13 +625,13 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
         // Show logging is disabled
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         boolean log_app = prefs.getBoolean("log_app", false);
-        holder.tvNolog.setVisibility(log_app ? View.GONE : View.VISIBLE);
-        holder.tvNolog.setOnClickListener(new View.OnClickListener() {
+        //holder.tvNolog.setVisibility(log_app ? View.GONE : View.VISIBLE);
+        /*holder.tvNolog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 context.startActivity(new Intent(context, ActivitySettings.class));
             }
-        });
+        });*/
 
         // Show disable access notifications setting
         boolean notify = prefs.getBoolean("notify_access", false);
