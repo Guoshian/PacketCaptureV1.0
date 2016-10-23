@@ -50,6 +50,23 @@
                 android:layout_weight="0.96" />
 
 
+
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:alpha="0.5"
+                android:src="?attr/expander"
+                />
+
+
+
+
+
+
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
