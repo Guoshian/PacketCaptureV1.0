@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:netguard="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/menu_search"
-        android:icon="@drawable/ic_search_white_24dp"
-        android:title="@string/menu_search"
-        netguard:actionViewClass="android.support.v7.widget.SearchView"
-        netguard:showAsAction="always|collapseActionView" />
+
     <!--<item
         android:id="@+id/menu_filter"
         android:icon="@drawable/ic_filter_list_white_24dp"
@@ -32,11 +27,15 @@
         </menu>
     </item>-->
 
-
-
-
-
     <item
+        android:id="@+id/menu_search"
+        android:title="@string/menu_search"
+        netguard:actionViewClass="android.support.v7.widget.SearchView"
+        netguard:showAsAction="always|collapseActionView" />
+
+
+
+    <!--<item
         android:id="@+id/menu_sort"
         android:icon="@drawable/ic_sort_white_24dp"
         android:title="@string/menu_sort"
@@ -49,15 +48,28 @@
                 <item
                     android:id="@+id/menu_sort_data"
                     android:title="@string/menu_sort_data" />
-                <!--<item
+                <item
                     android:id="@+id/menu_app_used"
                     android:checkable="true"
-                    android:title="@string/menu_app_used" />-->
+                    android:title="@string/menu_app_used" />
 
 
             </group>
         </menu>
-    </item>
+    </item>-->
+
+    <item
+        android:title="@string/menu_sort" />
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_sort_name"
+            android:title="@string/menu_sort_name" />
+        <item
+            android:id="@+id/menu_sort_data"
+            android:title="@string/menu_sort_data" />
+    </group>
+
     <item
         android:id="@+id/menu_log"
         android:title="@string/menu_log" />
@@ -76,4 +88,7 @@
     <item
         android:id="@+id/menu_about"
         android:title="@string/menu_about" />
+
+
+
 </menu>
