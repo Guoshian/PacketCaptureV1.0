@@ -80,6 +80,7 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
     private static final int REQUEST_INVITE = 2;
     private static final int REQUEST_LOGCAT = 3;
     public static final int REQUEST_ROAMING = 4;
+    private static final int REQUEST_PCAP = 5;
 
     private static final int MIN_SDK = Build.VERSION_CODES.ICE_CREAM_SANDWICH;
 
@@ -87,7 +88,7 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
     public static final String EXTRA_SEARCH = "Search";
     public static final String EXTRA_APPROVE = "Approve";
 
-    private static final int REQUEST_PCAP = 1;
+    //private static final int REQUEST_PCAP = 1;
 
 
     @Override
@@ -390,7 +391,7 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
 
         } else {
             Log.w(TAG, "Unknown activity result request=" + requestCode);
-            super.onActivityResult(requestCode, resultCode, data);
+            //super.onActivityResult(requestCode, resultCode, data);
         }
 
 

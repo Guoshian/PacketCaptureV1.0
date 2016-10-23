@@ -75,10 +75,10 @@
 
     <item
         android:id="@+id/menu_pcap_export1"
-        android:title="@string/menu_pcap_export" />
+        android:title="@string/menu_pcap_export1" />
     <item
         android:id="@+id/menu_log_clear1"
-        android:title="@string/menu_clear" />
+        android:title="@string/menu_clear1" />
 
     <item
         android:id="@+id/menu_log"
