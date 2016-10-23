@@ -87,7 +87,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
 
         public LinearLayout llApplication;
         public ImageView ivIcon;
-        public ImageView ivExpander;
+        public ImageView ivExpander2;
         public TextView tvName;
 
         public TextView tvHosts;
@@ -122,7 +122,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
         //public CheckBox cbNotify;
         //public ImageButton btnClearAccess;
         public TextView tvStatistics;
-        public TextView tvStatistics0;
+        //public TextView tvStatistics0;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -130,7 +130,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
 
             llApplication = (LinearLayout) itemView.findViewById(R.id.llApplication);
             ivIcon = (ImageView) itemView.findViewById(R.id.ivIcon);
-            ivExpander = (ImageView) itemView.findViewById(R.id.ivExpander);
+            ivExpander2 = (ImageView) itemView.findViewById(R.id.ivExpander2);
             tvName = (TextView) itemView.findViewById(R.id.tvName);
 
             tvHosts = (TextView) itemView.findViewById(R.id.tvHosts);
@@ -142,7 +142,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
             //ivScreenOther = (ImageView) itemView.findViewById(R.id.ivScreenOther);
 
             tvStatistics = (TextView) itemView.findViewById(R.id.tvStatistics);
-            tvStatistics0 = (TextView) itemView.findViewById(R.id.tvStatistics0);
+            //tvStatistics0 = (TextView) itemView.findViewById(R.id.tvStatistics0);
 
             //tvRoaming = (TextView) itemView.findViewById(R.id.tvRoaming);
 
@@ -168,7 +168,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
             //tvNolog = (TextView) itemView.findViewById(R.id.tvNolog);
             //cbNotify = (CheckBox) itemView.findViewById(R.id.cbNotify);
             //btnClearAccess = (ImageButton) itemView.findViewById(R.id.btnClearAccess);
-            //tvStatistics = (TextView) itemView.findViewById(R.id.tvStatistics);
+            tvStatistics = (TextView) itemView.findViewById(R.id.tvStatistics);
 
 
 
@@ -318,7 +318,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
         holder.itemView.setBackgroundColor(rule.changed ? colorChanged : Color.TRANSPARENT);
 
         // Show expand/collapse indicator
-        holder.ivExpander.setImageLevel(rule.expanded ? 1 : 0);
+        holder.ivExpander2.setImageLevel(rule.expanded ? 1 : 0);
 
         // Show application icon
         if (rule.info.applicationInfo == null || rule.info.applicationInfo.icon == 0)
@@ -392,7 +392,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
             DrawableCompat.setTint(wrap, colorOn);
         }*/
 
-        holder.tvStatistics.setText(context.getString(R.string.msg_mbday, rule.totalspeed));
+        //holder.tvStatistics0.setText(context.getString(R.string.msg_mbday, rule.totalspeed));
 
 
         //holder.tvRoaming.setAlpha(otherActive ? 1 : 0.5f);
@@ -662,8 +662,8 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
         });*/
 
         // Show traffic statistics
-        //holder.tvStatistics.setText(context.getString(R.string.msg_mbday, rule.totalspeed));
-        holder.tvStatistics0.setText(context.getString(R.string.msg_mbday0, rule.upspeed, rule.downspeed , rule.totalspeed));
+        holder.tvStatistics.setText(context.getString(R.string.msg_mbday0, rule.upspeed, rule.downspeed , rule.totalspeed));
+        //holder.tvStatistics0.setText(context.getString(R.string.msg_mbday0, rule.upspeed, rule.downspeed , rule.totalspeed));
 
     }
 

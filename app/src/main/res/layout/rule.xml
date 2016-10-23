@@ -61,14 +61,14 @@
                 android:src="?attr/expander"
                 />
 
-            
 
-            <TextView
+
+            <!--<TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Medium Text"
-                android:id="@+id/tvStatistics" />
+                android:id="@+id/tvStatistics0" />-->
 
             <TextView
                 android:id="@+id/tvHosts"
@@ -385,7 +385,7 @@
                 android:src="@drawable/ic_delete_white_24dp" />-->
 
             <TextView
-                android:id="@+id/tvStatistics0"
+                android:id="@+id/tvStatistics"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
