@@ -382,6 +382,20 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
             Log.w(TAG, "Unknown activity result request=" + requestCode);
             super.onActivityResult(requestCode, resultCode, data);
         }
+
+
+        if (requestCode == REQUEST_PCAP) {
+            if (resultCode == RESULT_OK && data != null)
+                handleExportPCAP(data);
+
+        } else {
+            Log.w(TAG, "Unknown activity result request=" + requestCode);
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+
+
+
+
     }
 
     @Override
@@ -596,8 +610,11 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
     public boolean onOptionsItemSelected(MenuItem item) {
         Log.i(TAG, "Menu=" + item.getTitle());
 
+
         // Handle item selection
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        final File pcap_file = new File(getCacheDir(), "netguard.pcap");
+
         switch (item.getItemId()) {
             /*case R.id.menu_app_user:
                 item.setChecked(!item.isChecked());
@@ -639,6 +656,30 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
                 startActivityForResult(getIntentPCAPDocument(), REQUEST_PCAP);
                 return true;
 
+            case R.id.menu_log_clear1:
+                new AsyncTask<Object, Object, Object>() {
+                    @Override
+                    protected Object doInBackground(Object... objects) {
+                        dh.clearLog();
+                        if (prefs.getBoolean("pcap", false)) {
+                            SinkholeService.setPcap(null);
+                            if (pcap_file.exists() && !pcap_file.delete())
+                                Log.w(TAG, "Delete PCAP failed");
+                            SinkholeService.setPcap(pcap_file);
+                        } else {
+                            if (pcap_file.exists() && !pcap_file.delete())
+                                Log.w(TAG, "Delete PCAP failed");
+                        }
+                        return null;
+                    }
+
+                    /*@Override
+                    protected void onPostExecute(Object result) {
+                        if (running)
+                            updateAdapter();
+                    }*/
+                }.execute();
+            return true;
 
 
 
