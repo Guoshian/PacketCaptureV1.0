@@ -56,6 +56,12 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class ActivityMain extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -80,6 +86,9 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
     public static final String ACTION_RULES_CHANGED = "eu.faircode.netguard.ACTION_RULES_CHANGED";
     public static final String EXTRA_SEARCH = "Search";
     public static final String EXTRA_APPROVE = "Approve";
+
+    private static final int REQUEST_PCAP = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -557,6 +566,8 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
     public boolean onPrepareOptionsMenu(Menu menu) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
+        File pcap_file = new File(getCacheDir(), "netguard.pcap");
+        boolean export = (getPackageManager().resolveActivity(getIntentPCAPDocument(), 0) != null);
         /*if (prefs.getBoolean("manage_system", false)) {
             /*menu.findItem(R.id.menu_app_user).setChecked(prefs.getBoolean("show_user", true));
             menu.findItem(R.id.menu_app_system).setChecked(prefs.getBoolean("show_system", false));
@@ -576,6 +587,7 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
         else
             menu.findItem(R.id.menu_sort_name).setChecked(true);
 
+        menu.findItem(R.id.menu_pcap_export1).setEnabled(pcap_file.exists() && export);
 
         return super.onPrepareOptionsMenu(menu);
     }
@@ -622,6 +634,19 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
                 prefs.edit().putBoolean("show_system", item.isChecked()).apply();
 
                 return true;
+
+            case R.id.menu_pcap_export1:
+                startActivityForResult(getIntentPCAPDocument(), REQUEST_PCAP);
+                return true;
+
+
+
+
+
+
+
+
+
 
             /*case R.id.menu_app_used:
                 item.setChecked(!item.isChecked());
@@ -765,4 +790,91 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
         }
         return intent;
     }
+
+
+    private Intent getIntentPCAPDocument() {
+        Intent intent;
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            if (Util.isPackageInstalled("org.openintents.filemanager", this)) {
+                intent = new Intent("org.openintents.action.PICK_DIRECTORY");
+            } else {
+                intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=org.openintents.filemanager"));
+            }
+        } else {
+            intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            intent.setType("application/octet-stream");
+            intent.putExtra(Intent.EXTRA_TITLE, "netguard_" + new SimpleDateFormat("yyyyMMdd").format(new Date().getTime()) + ".pcap");
+        }
+        return intent;
+    }
+
+    private void handleExportPCAP(final Intent data) {
+        new AsyncTask<Object, Object, Throwable>() {
+            @Override
+            protected Throwable doInBackground(Object... objects) {
+                OutputStream out = null;
+                FileInputStream in = null;
+                try {
+                    // Stop capture
+                    SinkholeService.setPcap(null);
+
+                    Uri target = data.getData();
+                    if (data.hasExtra("org.openintents.extra.DIR_PATH"))
+                        target = Uri.parse(target + "/netguard.pcap");
+                    Log.i(TAG, "Export PCAP URI=" + target);
+                    out = getContentResolver().openOutputStream(target);
+
+                    File pcap = new File(getCacheDir(), "netguard.pcap");
+                    in = new FileInputStream(pcap);
+
+                    int len;
+                    long total = 0;
+                    byte[] buf = new byte[4096];
+                    while ((len = in.read(buf)) > 0) {
+                        out.write(buf, 0, len);
+                        total += len;
+                    }
+                    Log.i(TAG, "Copied bytes=" + total);
+
+                    return null;
+                } catch (Throwable ex) {
+                    Log.e(TAG, ex.toString() + "\n" + Log.getStackTraceString(ex));
+                    Util.sendCrashReport(ex, ActivityMain.this);
+                    return ex;
+                } finally {
+                    if (out != null)
+                        try {
+                            out.close();
+                        } catch (IOException ex) {
+                            Log.e(TAG, ex.toString() + "\n" + Log.getStackTraceString(ex));
+                        }
+                    if (in != null)
+                        try {
+                            in.close();
+                        } catch (IOException ex) {
+                            Log.e(TAG, ex.toString() + "\n" + Log.getStackTraceString(ex));
+                        }
+
+                    // Resume capture
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ActivityMain.this);
+                    if (prefs.getBoolean("pcap", false)) {
+                        File pcap_file = new File(getCacheDir(), "netguard.pcap");
+                        SinkholeService.setPcap(pcap_file);
+                    }
+                }
+            }
+
+            @Override
+            protected void onPostExecute(Throwable ex) {
+                if (ex == null)
+                    Toast.makeText(ActivityMain.this, R.string.msg_completed, Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(ActivityMain.this, ex.toString(), Toast.LENGTH_LONG).show();
+            }
+        }.execute();
+    }
+
+
 }
