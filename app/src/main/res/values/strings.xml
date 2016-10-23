@@ -140,8 +140,8 @@ Your internet traffic is not being sent to a remote VPN server.</string>
     <string name="msg_terms">By donating you agree to the <a href="http://www.netguard.me/#terms">terms &amp; conditions</a></string>
     <string name="msg_dimming">If you cannot press OK in the next dialog, another (screen dimming) application is likely manipulating the screen.</string>
 
-    <string name="msg_mbday">&#177; %1$.3f MB/day</string>
-    <string name="msg_mbday0">&#177; %1$.3f&#9650; %2$.3f&#9660; MB/day</string>
+    <string name="msg_mbday0">&#177; %1$.3f MB/day</string>
+    <string name="msg_mbday1">&#177; %1$.3f&#9650; %2$.3f&#9660; MB/day</string>
     <string name="msg_kbsec">%7.3f KB/s</string>
     <string name="msg_mbsec">%7.3f MB/s</string>
     <string name="msg_filter">Using filtering will cause Android to attribute data and power usage to NetGuard - Android assumes the data and power are being used by NetGuard, rather than the original applications</string>
@@ -163,7 +163,8 @@ Your internet traffic is not being sent to a remote VPN server.</string>
     <string name="title_disabled">is disabled</string>
     <string name="title_internet">has no internet permission</string>
     <!--<string name="title_launch">Start application</string>-->
-    <string name="title_access">Access attempts</string>
+    <!--<string name="title_access">Access attempts</string>-->
+    <string name="title_total">Total</string>
     <string name="title_no_log"><u>Logging is not enabled</u></string>
     <string name="title_precedence">Access rules take precedence over other rules</string>
     <string name="title_rate">Rate</string>

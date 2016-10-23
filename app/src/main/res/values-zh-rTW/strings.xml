@@ -121,8 +121,8 @@ Your internet traffic is not being sent to a remote VPN server.</string>
   <string name="msg_try">試試網路守門人</string>
   <string name="msg_terms">捐款代表你同意<a href="http://www.netguard.me/#terms">terms &amp; conditions</a></string>
   <string name="msg_dimming">如果你在下一個對話框沒辦法點OK,可能是有其他App(濾波器之類的)在執行螢幕繪製.</string>
-  <string name="msg_mbday0">± %1$.3f▲ %2$.3f▼ %3$.3f MB / 天</string>
-  <string name="msg_mbday"> %1$.3f MB</string>
+  <string name="msg_mbday0"> %1$.3f MB</string>
+  <string name="msg_mbday1">± %1$.3f▲ %2$.3f▼ MB / 天</string>
   <string name="msg_kbsec">%7.3f KB/s</string>
   <string name="msg_mbsec">%7.3f MB/s</string>
   <string name="msg_filter">Using filtering will cause Android to attribute data and power usage to NetGuard - Android assumes the data and power are being used by NetGuard, rather than the original applications</string>
@@ -144,7 +144,8 @@ Your internet traffic is not being sent to a remote VPN server.</string>
   <string name="title_disabled">未啟用</string>
   <string name="title_internet">沒有網路權限</string>
   <!--<string name="title_launch">啟動App</string>-->
-  <string name="title_access">Access attempts</string>
+  <!--<string name="title_access">Access attempts</string>-->
+  <string name="title_total">Total</string>
   <!--<string name="title_no_log"><u>Logging is not enabled</u></string>-->
   <!--<string name="title_precedence">Access rules take precedence over other rules</string>-->
   <string name="title_rate">評分</string>
