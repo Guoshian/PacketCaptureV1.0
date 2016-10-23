@@ -568,11 +568,11 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
             }
         });
 
-        if (!Util.hasValidFingerprint(this) || getIntentInvite(this).resolveActivity(getPackageManager()) == null)
-            menu.removeItem(R.id.menu_invite);
+        //if (!Util.hasValidFingerprint(this) || getIntentInvite(this).resolveActivity(getPackageManager()) == null)
+           // menu.removeItem(R.id.menu_invite);
 
-        if (getIntentSupport().resolveActivity(getPackageManager()) == null)
-            menu.removeItem(R.id.menu_support);
+       // if (getIntentSupport().resolveActivity(getPackageManager()) == null)
+           // menu.removeItem(R.id.menu_support);
 
         return true;
     }
@@ -698,7 +698,7 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
 
 
 
-            case R.id.menu_log:
+            /*case R.id.menu_log:
                 if (IAB.isPurchased(ActivityPro.SKU_LOG, this))
                     startActivity(new Intent(this, ActivityLog.class));
                 else
@@ -723,7 +723,7 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
 
             case R.id.menu_about:
                 menu_about();
-                return true;
+                return true;*/
 
             default:
                 return super.onOptionsItemSelected(item);

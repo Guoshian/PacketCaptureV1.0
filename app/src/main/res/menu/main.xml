@@ -80,7 +80,9 @@
         android:id="@+id/menu_log_clear1"
         android:title="@string/menu_clear1" />
 
-    <item
+
+
+    <!--<item
         android:id="@+id/menu_log"
         android:title="@string/menu_log" />
     <item
@@ -97,7 +99,7 @@
         android:title="@string/menu_support" />
     <item
         android:id="@+id/menu_about"
-        android:title="@string/menu_about" />
+        android:title="@string/menu_about" />-->
 
 
 
