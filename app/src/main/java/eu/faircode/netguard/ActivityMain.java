@@ -623,10 +623,10 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
 
                 return true;
 
-            case R.id.menu_app_userd:
+            /*case R.id.menu_app_used:
                 item.setChecked(!item.isChecked());
 
-                return true;
+                return true;*/
 
 
 

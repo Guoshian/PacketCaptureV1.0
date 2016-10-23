@@ -16,7 +16,7 @@ however it is impossible to guarantee NetGuard will work correctly on every devi
   <string name="menu_sort">程式排序</string>
   <string name="menu_sort_name">按名稱排序</string>
   <string name="menu_sort_data">按流量排序</string>
-  <string name="menu_app_userd">顯示使用程式</string>
+  <!--<string name="menu_app_used">顯示使用程式</string>-->
   <string name="menu_log">顯示紀錄</string>
   <string name="menu_settings">設定</string>
   <string name="menu_invite">邀請</string>

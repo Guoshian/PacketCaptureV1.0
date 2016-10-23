@@ -49,10 +49,10 @@
                 <item
                     android:id="@+id/menu_sort_data"
                     android:title="@string/menu_sort_data" />
-                <item
-                    android:id="@+id/menu_app_userd"
+                <!--<item
+                    android:id="@+id/menu_app_used"
                     android:checkable="true"
-                    android:title="@string/menu_app_userd" />
+                    android:title="@string/menu_app_used" />-->
 
 
             </group>
