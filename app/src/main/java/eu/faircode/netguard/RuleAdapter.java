@@ -121,8 +121,9 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
         //public TextView tvNolog;
         //public CheckBox cbNotify;
         //public ImageButton btnClearAccess;
-        public TextView tvStatistics0;
-        public TextView tvStatistics1;
+        public TextView tvStatisticsmobileUD;
+        public TextView tvStatisticsuid;
+        public TextView tvStatisticsuidUD;
 
 
         public ViewHolder(View itemView) {
@@ -169,8 +170,10 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
             //tvNolog = (TextView) itemView.findViewById(R.id.tvNolog);
             //cbNotify = (CheckBox) itemView.findViewById(R.id.cbNotify);
             //btnClearAccess = (ImageButton) itemView.findViewById(R.id.btnClearAccess);
-            tvStatistics0 = (TextView) itemView.findViewById(R.id.tvStatistics0);
-            tvStatistics1 = (TextView) itemView.findViewById(R.id.tvStatistics1);
+
+            tvStatisticsmobileUD = (TextView) itemView.findViewById(R.id.tvStatisticsmpbileUD);
+            tvStatisticsuid = (TextView) itemView.findViewById(R.id.tvStatisticsuid);
+            tvStatisticsuidUD = (TextView) itemView.findViewById(R.id.tvStatisticsuidUD);
 
 
 
@@ -558,6 +561,8 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
             }
         });*/
 
+
+
         // Show access rules
         if (rule.expanded) {
             // Access the database when expanded only
@@ -663,9 +668,12 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.ViewHolder> im
             }
         });*/
 
+
+        holder.tvStatisticsmobileUD.setText(context.getString(R.string.msg_mbdaymobileUD,rule.totalspeedmobile));
+
         // Show traffic statistics
-        holder.tvStatistics0.setText(context.getString(R.string.msg_mbday0,rule.totalspeed));
-        holder.tvStatistics1.setText(context.getString(R.string.msg_mbday1, rule.upspeed, rule.downspeed ));
+        holder.tvStatisticsuid.setText(context.getString(R.string.msg_mbday0,rule.totalspeed));
+        holder.tvStatisticsuidUD.setText(context.getString(R.string.msg_mbday1, rule.upspeed, rule.downspeed ));
         //holder.tvStatistics0.setText(context.getString(R.string.msg_mbday0, rule.upspeed, rule.downspeed , rule.totalspeed));
 
     }

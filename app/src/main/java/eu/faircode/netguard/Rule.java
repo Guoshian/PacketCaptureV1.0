@@ -74,6 +74,11 @@ public class Rule {
     public float downspeed;
     public float totalbytes;
     public float totalspeed;
+    public float downspeed1;
+
+    public float upspeedmobile;
+    public float downspeedmobile;
+    public float totalspeedmobile;
 
     public boolean changed;
 
@@ -260,10 +265,20 @@ public class Rule {
 
                 long up = TrafficStats.getUidTxBytes(rule.info.applicationInfo.uid);
                 long down = TrafficStats.getUidRxBytes(rule.info.applicationInfo.uid);
+
                 rule.totalbytes = up + down;
                 rule.upspeed = (float) up * 24 * 3600 * 1000 / 1024f / 1024f / now;
                 rule.downspeed = (float) down * 24 * 3600 * 1000 / 1024f / 1024f / now;
                 rule.totalspeed = (float) up * 24 * 3600 * 1000 / 1024f / 1024f / now + (float) down * 24 * 3600 * 1000 / 1024f / 1024f / now;
+
+                //rule.totalspeed =0;
+
+                long downmobile =TrafficStats.getMobileRxBytes();
+                long upmobile =TrafficStats.getMobileTxBytes();
+
+                rule.downspeedmobile = (float) downmobile* 24 * 3600 * 1000 / 1024f / 1024f / now;
+                rule.upspeedmobile = (float) upmobile* 24 * 3600 * 1000 / 1024f / 1024f / now;
+                rule.totalspeedmobile = (float) downmobile* 24 * 3600 * 1000 / 1024f / 1024f / now + (float) upmobile* 24 * 3600 * 1000 / 1024f / 1024f / now;
 
 
 

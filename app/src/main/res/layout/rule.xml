@@ -330,12 +330,29 @@
             android:layout_marginTop="4dp"
             android:src="@drawable/ic_delete_white_24dp" />-->
 
+
         <!--<TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:text="@string/title_access"
             android:textAppearance="@style/TextTitle" />-->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/title_mobile"
+            android:textAppearance="@style/TextTitle" />
+
+        <TextView
+            android:id="@+id/tvStatisticsmpbileUD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            />
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -389,7 +406,7 @@
             android:nestedScrollingEnabled="false" />-->
 
         <TextView
-            android:id="@+id/tvStatistics0"
+            android:id="@+id/tvStatisticsuid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -412,7 +429,7 @@
 
 
             <TextView
-                android:id="@+id/tvStatistics1"
+                android:id="@+id/tvStatisticsuidUD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"

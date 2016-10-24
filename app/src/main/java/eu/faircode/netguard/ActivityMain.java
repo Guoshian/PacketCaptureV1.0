@@ -642,13 +642,15 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
             case R.id.menu_sort_name:
                 item.setChecked(true);
                 prefs.edit().putString("sort", "name").apply();
-
+                prefs.edit().putBoolean("show_user", item.isChecked()).apply();
+                prefs.edit().putBoolean("show_system", item.isChecked()).apply();
                 return true;
 
             case R.id.menu_sort_data:
                 item.setChecked(true);
                 prefs.edit().putString("sort", "data").apply();
-
+                prefs.edit().putBoolean("show_user", item.isChecked()).apply();
+                prefs.edit().putBoolean("show_system", item.isChecked()).apply();
 
                 return true;
 
