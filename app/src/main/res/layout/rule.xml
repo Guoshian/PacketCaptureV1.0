@@ -346,13 +346,28 @@
             android:textAppearance="@style/TextTitle" />
 
         <TextView
-            android:id="@+id/tvStatisticsmpbileUD"
+            android:id="@+id/tvStatisticsmobileUD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Medium Text"
             />
 
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/title_wifi"
+            android:textAppearance="@style/TextTitle" />
+
+        <TextView
+            android:id="@+id/tvStatisticswifiUD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            />
 
         <TextView
             android:layout_width="wrap_content"

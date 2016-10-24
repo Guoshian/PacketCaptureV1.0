@@ -74,11 +74,16 @@ public class Rule {
     public float downspeed;
     public float totalbytes;
     public float totalspeed;
-    public float downspeed1;
+
 
     public float upspeedmobile;
     public float downspeedmobile;
     public float totalspeedmobile;
+
+    public float upspeedwifi;
+    public float downspeedwifi;
+    public float totalspeedwifi;
+
 
     public boolean changed;
 
@@ -273,13 +278,23 @@ public class Rule {
 
                 //rule.totalspeed =0;
 
-                long downmobile =TrafficStats.getMobileRxBytes();
-                long upmobile =TrafficStats.getMobileTxBytes();
+                long downmobile = TrafficStats.getMobileRxBytes();
+                long upmobile = TrafficStats.getMobileTxBytes();
 
                 rule.downspeedmobile = (float) downmobile* 24 * 3600 * 1000 / 1024f / 1024f / now;
                 rule.upspeedmobile = (float) upmobile* 24 * 3600 * 1000 / 1024f / 1024f / now;
-                rule.totalspeedmobile = (float) downmobile* 24 * 3600 * 1000 / 1024f / 1024f / now + (float) upmobile* 24 * 3600 * 1000 / 1024f / 1024f / now;
+                //rule.totalspeedmobile = (float) downmobile* 24 * 3600 * 1000 / 1024f / 1024f / now + (float) upmobile* 24 * 3600 * 1000 / 1024f / 1024f / now;
 
+                rule.totalspeedmobile =(float) (TrafficStats.getMobileRxBytes()+TrafficStats.getMobileTxBytes())/1024f/1024f;
+
+                long downwifi =TrafficStats.getTotalRxBytes()-TrafficStats.getMobileRxBytes();
+                long upwifi =TrafficStats.getTotalTxBytes()-TrafficStats.getMobileTxBytes();
+
+                rule.downspeedwifi = (float) downwifi* 24 * 3600 * 1000 / 1024f / 1024f / now;
+                rule.upspeedwifi = (float) upwifi* 24 * 3600 * 1000 / 1024f / 1024f / now;
+                //rule.totalspeedwifi = (float) downwifi* 24 * 3600 * 1000 / 1024f / 1024f / now + (float) upwifi* 24 * 3600 * 1000 / 1024f / 1024f / now;
+
+                rule.totalspeedwifi = (float) ( downwifi + upwifi ) /1024f / 1024f;
 
 
                 rule.updateChanged(default_wifi, default_other, default_roaming);
