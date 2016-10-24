@@ -74,6 +74,11 @@
         android:title="@string/menu_pcap" />
 
     <item
+        android:id="@+id/menu_pcap_enabled1"
+        android:title="@string/menu_pcap_enabled1" />
+
+
+    <item
         android:id="@+id/menu_pcap_export1"
         android:title="@string/menu_pcap_export1" />
     <item
@@ -84,11 +89,11 @@
 
     <!--<item
         android:id="@+id/menu_log"
-        android:title="@string/menu_log" />
+        android:title="@string/menu_log" />-->
     <item
         android:id="@+id/menu_settings"
         android:title="@string/menu_settings" />
-    <item
+   <!-- <item
         android:id="@+id/menu_pro"
         android:title="@string/title_pro" />
     <item

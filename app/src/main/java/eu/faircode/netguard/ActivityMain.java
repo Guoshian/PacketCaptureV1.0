@@ -602,6 +602,8 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
         else
             menu.findItem(R.id.menu_sort_name).setChecked(true);
 
+        menu.findItem(R.id.menu_pcap_enabled1).setEnabled(prefs.getBoolean("filter", false));
+        menu.findItem(R.id.menu_pcap_enabled1).setChecked(prefs.getBoolean("pcap", false));
         menu.findItem(R.id.menu_pcap_export1).setEnabled(pcap_file.exists() && export);
 
         return super.onPrepareOptionsMenu(menu);
@@ -648,6 +650,14 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
                 prefs.edit().putString("sort", "data").apply();
 
 
+                return true;
+
+
+
+            case R.id.menu_pcap_enabled1:
+                item.setChecked(!item.isChecked());
+                prefs.edit().putBoolean("pcap", item.isChecked()).apply();
+                SinkholeService.setPcap(item.isChecked() ? pcap_file : null);
                 return true;
 
             case R.id.menu_pcap_export1:
@@ -700,13 +710,15 @@ public class ActivityMain extends AppCompatActivity implements SharedPreferences
                     startActivity(new Intent(this, ActivityLog.class));
                 else
                     startActivity(new Intent(this, ActivityPro.class));
-                return true;
+                return true;*/
+
+
 
             case R.id.menu_settings:
                 startActivity(new Intent(this, ActivitySettings.class));
                 return true;
 
-            case R.id.menu_pro:
+            /*case R.id.menu_pro:
                 startActivity(new Intent(ActivityMain.this, ActivityPro.class));
                 return true;
 
